@@ -28,7 +28,7 @@ class Word(ParsedObject):
     """
 
     def __repr__(self) -> str:
-        return f'Word(word={self.word})'
+        return f'Word(word={self.word!r})'
 
     @property
     def word(self) -> str:

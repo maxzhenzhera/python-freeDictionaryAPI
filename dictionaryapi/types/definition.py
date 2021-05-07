@@ -25,7 +25,7 @@ class Definition(ParsedObject):
     """
 
     def __repr__(self) -> str:
-        return f'Definition(definition={self.definition}, synonyms={self.synonyms}, example={self.example})'
+        return f'Definition(definition={self.definition!r}, synonyms={self.synonyms!r}, example={self.example!r})'
 
     @property
     def definition(self) -> str:

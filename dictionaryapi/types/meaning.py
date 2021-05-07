@@ -26,7 +26,7 @@ class Meaning(ParsedObject):
     """
 
     def __repr__(self) -> str:
-        return f'Meaning(part_of_speech={self.part_of_speech}, definitions={self.definitions})'
+        return f'Meaning(part_of_speech={self.part_of_speech!r}, definitions={self.definitions!r})'
 
     @property
     def part_of_speech(self) -> str:
