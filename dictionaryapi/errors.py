@@ -5,9 +5,15 @@ Contains API errors.
     Common error for all API errors
 .. exception:: DictionaryApiNotFoundError(DictionaryApiError):
     Raised on 404 status code
+
+.. data:: API_ERRORS_MAPPER
+    Mapper of http status codes and error objects (exception classes)
 """
 
 from typing import Type
+
+
+__all__ = ['DictionaryApiError', 'DictionaryApiNotFoundError', 'API_ERRORS_MAPPER']
 
 
 class DictionaryApiError(Exception):

@@ -15,6 +15,9 @@ from .types import (
 )
 
 
+__all__ = ['DictionaryApiParser']
+
+
 class DictionaryApiParser:
     """
     Implements dictionary API parser.
