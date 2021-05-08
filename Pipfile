@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 aiohttp = "*"
 aiocache = "*"
+sphinx = "*"
+httpx = "*"
 
 [dev-packages]
 
