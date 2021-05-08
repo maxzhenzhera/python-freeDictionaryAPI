@@ -1,21 +1,25 @@
 """
-Contains dictionary API parser.
+Contains dictionary API parsers.
 
 .. class:: DictionaryApiParser
     Implements dictionary API parser
+.. class:: DictionaryApiErrorParser
+    Implements dictionary API error parser
 """
 
 import reprlib
+from typing import Union
 
 from .types import (
     Definition,
+    Error,
     Phonetic,
     Meaning,
     Word
 )
 
 
-__all__ = ['DictionaryApiParser']
+__all__ = ['DictionaryApiParser', 'DictionaryApiErrorParser']
 
 
 class DictionaryApiParser:
@@ -32,8 +36,8 @@ class DictionaryApiParser:
 
 
     .. attr:: _response list: API json response in python representation
-    .. attr:: _data dict: actually data of API json response (element from list)
-    .. attr:: _word Word: ``Word`` object
+    .. attr:: _data dict: data for parsing actually
+    .. attr:: _word Word: parsed object that contains word info
 
     .. property:: word(self) -> Word
     .. property:: phonetics(self) -> list[Phonetic]
@@ -58,7 +62,7 @@ class DictionaryApiParser:
         Get all synonyms
     """
 
-    def __init__(self, response: list) -> None:
+    def __init__(self, response: Union[dict, list]) -> None:
         """
         Parse API response that loaded in python object (json.load/s).
 
@@ -69,11 +73,26 @@ class DictionaryApiParser:
         ``response.json()`` -  to get python object loaded from json.
 
         :param response: API json response in python representation
-        :type response: list
+        :type response: Union[dict, list]
         """
 
-        self._response: list = response
-        self._data: dict = self._response[0]
+        self._response: Union[dict, list] = response
+
+        if isinstance(self._response, list):
+            self._data: dict = self._response[0]
+        elif isinstance(self._response, dict):
+            self._data: dict = self._response
+        else:
+            message = (
+                'API json response contains unsupported type. '
+                'Expected to get <list> or <dict>! '
+                f'Got {self._response!r}'
+            )
+            raise TypeError(message)
+
+        #
+        # assert 'word' in self._data
+        #
 
         self._word: Word = Word(self._data)
 
@@ -164,3 +183,84 @@ class DictionaryApiParser:
         synonyms = list(synonyms)
 
         return synonyms
+
+
+class DictionaryApiErrorParser:
+    """
+    Implements dictionary API error parser.
+
+    Contains useful ``get_formatted_error_message`` that
+    return pretty formatted error message.
+
+    .. attrs:: _status_code int: response status code
+    .. attrs:: _response dict: API json response in python representation
+    .. attrs:: _data dict: data for parsing actually
+    .. attrs:: _error Error: parsed object that contains error info
+
+    .. property:: status_code(self) -> int
+    .. property:: title(self) -> str
+    .. property:: message(self) -> str
+    .. property:: resolution(self) -> str
+
+    .. method:: get_formatted_error_message(self) -> str
+        Get formatted error message (might be used on errors raising)
+    """
+
+    def __init__(self, status_code: int, response: dict) -> None:
+        """
+        Parse API error response.
+
+        :param status_code: http status code
+        :type status_code: int
+        :param response: API json response in python representation
+        :type response: dict
+        """
+
+        self._status_code = status_code
+        self._response = response
+        # For the same behaviour as in the ``DictionaryApiParser``
+        # where in API response returned list, we save some attrs:
+        # * response - loaded json response;
+        # * data - actually data for parsing (supposed to be simple ``dict``).
+        # In case of ``DictionaryApiParser`` we have to get first element of returned list.
+        # Here we just repeat the same behaviour.
+        self._data = self._response
+
+        self._error = Error(self._data)
+
+    def __repr__(self) -> str:
+        return f'DictionaryApiErrorParser(status_code={self._status_code})'
+
+    @property
+    def status_code(self) -> int:
+        """ Get error http status code """
+        return self._status_code
+
+    @property
+    def title(self) -> str:
+        """ Get error title. Shortcut for ``error.title`` """
+        return self._error.title
+
+    @property
+    def message(self) -> str:
+        """ Get error message. Shortcut for ``error.message`` """
+        return self._error.message
+
+    @property
+    def resolution(self) -> str:
+        """ Get error resolution. Shortcut for ``error.resolution`` """
+        return self._error.resolution
+
+    def get_formatted_error_message(self) -> str:
+        """ Get readable error message """
+        error_message = '\n\t'.join(
+            (
+                'API error occured during request processing.',
+                f'Status code: {self.status_code}.',
+                f'Title: {self.title}.',
+                f'Message: {self.message}.',
+                f'Resolution: {self.resolution}.',
+            )
+        )
+
+        return error_message
