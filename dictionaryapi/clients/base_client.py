@@ -73,3 +73,8 @@ class BaseDictionaryApiClient(abc.ABC):
         :raises ``DictionaryApiError`` and inherited errors: raised
             when unsuccessful status code got of API request
         """
+
+    @classmethod
+    @abc.abstractmethod
+    def manager(cls, *args, **kwargs):
+        """ Get context manager for parser client """

@@ -7,6 +7,7 @@ FOR WORK REQUIRE ``httpx`` PACKAGE TO BE INSTALLED.
     Implements sync dictionary API client
 """
 
+import contextlib
 from http import HTTPStatus
 import logging
 from typing import (
@@ -93,12 +94,6 @@ class DictionaryApiClient(BaseDictionaryApiClient):
     def __repr__(self) -> str:
         return f'DictionaryApiClient(default_language_code={self._default_language_code!r})'
 
-    def close(self) -> None:
-        """ Close dictionary API client """
-        self._client.close()
-
-        logger.info('Sync client has been successfully closed.')
-
     def _fetch_json(self, word: str, language_code: Optional[LanguageCodes] = None) -> Any:
         """
         Fetch API json response.
@@ -178,3 +173,23 @@ class DictionaryApiClient(BaseDictionaryApiClient):
         word = parser.word
 
         return word
+
+    @classmethod
+    @contextlib.contextmanager
+    def manager(cls, *args, **kwargs) -> 'DictionaryApiParser':
+        """
+        Get context manager for parser client.
+        Accepting all params from constructor.
+        """
+
+        client = cls(*args, **kwargs)
+        try:
+            yield client
+        finally:
+            client.close()
+
+    def close(self) -> None:
+        """ Close dictionary API client """
+        self._client.close()
+
+        logger.info('Client has been successfully closed.')

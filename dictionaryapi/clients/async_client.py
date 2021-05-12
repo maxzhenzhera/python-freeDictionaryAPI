@@ -7,6 +7,7 @@ FOR WORK REQUIRE ``aiohttp`` PACKAGE TO BE INSTALLED.
     Implements async dictionary API client
 """
 
+import contextlib
 from http import HTTPStatus
 import logging
 from typing import (
@@ -93,12 +94,6 @@ class AsyncDictionaryApiClient(BaseDictionaryApiClient):
     def __repr__(self) -> str:
         return f'AsyncDictionaryApiClient(default_language_code={self._default_language_code!r})'
 
-    async def close(self) -> None:
-        """ Close dictionary API client """
-        await self._session.close()
-
-        logger.info('Async client has been successfully closed.')
-
     async def _fetch_json(self, word: str, language_code: Optional[LanguageCodes] = None) -> Any:
         """
         Fetch API json response.
@@ -177,3 +172,23 @@ class AsyncDictionaryApiClient(BaseDictionaryApiClient):
         word = parser.word
 
         return word
+
+    @classmethod
+    @contextlib.asynccontextmanager
+    async def manager(cls, *args, **kwargs) -> 'DictionaryApiParser':
+        """
+        Get context manager for parser client.
+        Accepting all params from constructor.
+        """
+
+        client = cls(*args, **kwargs)
+        try:
+            yield client
+        finally:
+            await client.close()
+
+    async def close(self) -> None:
+        """ Close dictionary API client """
+        await self._session.close()
+
+        logger.info('Client has been successfully closed.')
