@@ -97,3 +97,12 @@ class ParsedObject(abc.ABC):
         """
 
         self._data = data
+
+    def __eq__(self, other: 'ParsedObject') -> bool:
+        if not isinstance(other, ParsedObject):
+            class_name = self.__class__.__name__
+            raise TypeError(f'{class_name} can not be compared with instance of the other type: {other!r}')
+
+        equality = self._data == other._data
+
+        return equality
