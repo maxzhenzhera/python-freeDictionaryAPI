@@ -15,3 +15,14 @@ Yes, ``httpx`` also provides async support
 but
 ``aiohttp`` used more often in async projects.
 """
+
+from .base_client import BaseDictionaryApiClient
+from .sync_client import DictionaryApiClient
+from .async_client import AsyncDictionaryApiClient
+
+
+__all__ = [
+    'BaseDictionaryApiClient',
+    'DictionaryApiClient',
+    'AsyncDictionaryApiClient'
+]
