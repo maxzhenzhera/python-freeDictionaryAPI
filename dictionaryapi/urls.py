@@ -85,7 +85,8 @@ class ApiUrl:
             raise TypeError(message)
 
     def __repr__(self) -> str:
-        return f'ApiUrl(word={self._word}, language_code={self._language_code!r})'
+        class_name = self.__class__.__name__
+        return f'{class_name}(word={self._word}, language_code={self._language_code!r})'
 
     @property
     def word(self) -> str:

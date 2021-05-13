@@ -92,7 +92,8 @@ class DictionaryApiClient(BaseDictionaryApiClient):
         return self._client
 
     def __repr__(self) -> str:
-        return f'DictionaryApiClient(default_language_code={self._default_language_code!r})'
+        class_name = self.__class__.__name__
+        return f'{class_name}(default_language_code={self._default_language_code!r})'
 
     def _fetch_json(self, word: str, language_code: Optional[LanguageCodes] = None) -> Any:
         """

@@ -26,7 +26,8 @@ class Phonetic(ParsedObject):
     """
 
     def __repr__(self) -> str:
-        return f'Phonetic(text={self.text!r}, audio={self.audio!r})'
+        class_name = self.__class__.__name__
+        return f'{class_name}(text={self.text!r}, audio={self.audio!r})'
 
     @property
     def text(self) -> str:

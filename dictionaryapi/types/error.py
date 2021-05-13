@@ -25,7 +25,8 @@ class Error(ParsedObject):
     """
 
     def __repr__(self) -> str:
-        return f'Error(title={self.title!r}, message={self.message!r}, resolution={self.resolution!r})'
+        class_name = self.__class__.__name__
+        return f'{class_name}(title={self.title!r}, message={self.message!r}, resolution={self.resolution!r})'
 
     @property
     def title(self) -> str:
