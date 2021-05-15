@@ -88,7 +88,7 @@ class AsyncDictionaryApiClient(BaseDictionaryApiClient):
 
     @property
     def session(self) -> aiohttp.ClientSession:
-        """ Get aiohttp session """
+        """ Get ``aiohttp`` session """
         return self._session
 
     def __repr__(self) -> str:

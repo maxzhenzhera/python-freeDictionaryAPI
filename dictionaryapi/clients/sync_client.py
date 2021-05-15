@@ -88,7 +88,7 @@ class DictionaryApiClient(BaseDictionaryApiClient):
 
     @property
     def client(self) -> httpx.Client:
-        """ Get httpx client """
+        """ Get ``httpx`` client """
         return self._client
 
     def __repr__(self) -> str:
