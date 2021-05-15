@@ -5,9 +5,11 @@ name = "pypi"
 
 [packages]
 aiohttp = "*"
-aiocache = "*"
 sphinx = "*"
 httpx = "*"
+pytest = "*"
+pytest-datadir = "*"
+pytest-asyncio = "*"
 
 [dev-packages]
 
