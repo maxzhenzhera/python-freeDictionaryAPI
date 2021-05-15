@@ -5,6 +5,8 @@ Contains definition type.
     Implements definition type (info about definition)
 """
 
+from typing import Optional
+
 from .base import ParsedObject
 
 
@@ -18,6 +20,13 @@ class Definition(ParsedObject):
         * definition - phrase about word meaning;
         * synonyms - list of synonyms;
         * example - example sentence or phrase with word usage by current definition.
+
+    Note:
+        ``synonyms`` and ``example`` properties are not always available.
+        API response does not always provide these fields.
+        So in return type it is annotated accordingly:
+            ``synonyms`` -> ``Optional[list[str]]``
+            ``example`` -> Optional[str]
 
     .. property:: definition(self) -> str
     .. property:: synonyms(self) -> list[str]
@@ -36,15 +45,15 @@ class Definition(ParsedObject):
         return definition
 
     @property
-    def synonyms(self) -> list[str]:
+    def synonyms(self) -> Optional[list[str]]:
         """ Get list of synonyms """
-        synonyms: list[str] = self._data.get('synonyms')
+        synonyms: Optional[list[str]] = self._data.get('synonyms')
 
         return synonyms
 
     @property
-    def example(self) -> str:
+    def example(self) -> Optional[str]:
         """ Get example """
-        example: str = self._data.get('example')
+        example: Optional[str] = self._data.get('example')
 
         return example
