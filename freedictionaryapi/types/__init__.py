@@ -2,12 +2,15 @@
 Contains types of parsed objects.
 
 Structure of types relations:
-- ParsedObject (Abstract class for all objects below)
-    - Word (successful response)
-        - Phonetic
-        - Meaning
-            - Definition
-    - Error (error response)
+
+    - ParsedObject (Abstract class for all objects below)
+
+        - Word (successful response)
+            - Phonetic
+            - Meaning
+                - Definition
+
+        - Error (error response)
 """
 
 from .base import ParsedObject

@@ -2,7 +2,6 @@
 Contains error type (of json API response, meaning parsed object).
 
 .. class Error(ParsedObject)
-    Implements error type (info about API error)
 """
 
 from .base import ParsedObject
@@ -18,10 +17,6 @@ class Error(ParsedObject):
         * title - short error title;
         * message - more detailed error message;
         * resolution - offer to solve problem.
-
-    .. property:: title(self) -> str
-    .. property:: message(self) -> str
-    .. property:: resolution(self) -> str
     """
 
     def __repr__(self) -> str:
@@ -30,15 +25,15 @@ class Error(ParsedObject):
 
     @property
     def title(self) -> str:
-        """ Get title """
+        """ Error title """
         return self._data.get('title')
 
     @property
     def message(self) -> str:
-        """ Get message """
+        """ Error message """
         return self._data.get('message')
 
     @property
     def resolution(self) -> str:
-        """ Get resolution """
+        """ Error resolution """
         return self._data.get('resolution')

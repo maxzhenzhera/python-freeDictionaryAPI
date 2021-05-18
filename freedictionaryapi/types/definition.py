@@ -2,7 +2,6 @@
 Contains definition type.
 
 .. class Definition(ParsedObject)
-    Implements definition type (info about definition)
 """
 
 from typing import Optional
@@ -21,16 +20,12 @@ class Definition(ParsedObject):
         * synonyms - list of synonyms;
         * example - example sentence or phrase with word usage by current definition.
 
-    Note:
+    .. note:
         ``synonyms`` and ``example`` properties are not always available.
         API response does not always provide these fields.
         So in return type it is annotated accordingly:
             ``synonyms`` -> ``Optional[list[str]]``
             ``example`` -> Optional[str]
-
-    .. property:: definition(self) -> str
-    .. property:: synonyms(self) -> list[str]
-    .. property:: example(self) -> str
     """
 
     def __repr__(self) -> str:
@@ -39,21 +34,21 @@ class Definition(ParsedObject):
 
     @property
     def definition(self) -> str:
-        """ Get definition """
+        """ Definition (meaning phrase or sentence) """
         definition: str = self._data.get('definition')
 
         return definition
 
     @property
     def synonyms(self) -> Optional[list[str]]:
-        """ Get list of synonyms """
+        """ List of synonyms (might be omitted) """
         synonyms: Optional[list[str]] = self._data.get('synonyms')
 
         return synonyms
 
     @property
     def example(self) -> Optional[str]:
-        """ Get example """
+        """ Example phrase or sentence of word usage (might be omitted) """
         example: Optional[str] = self._data.get('example')
 
         return example

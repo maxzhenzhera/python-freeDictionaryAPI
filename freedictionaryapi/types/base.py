@@ -2,7 +2,6 @@
 Contains base types.
 
 .. class:: ParsedObject(abc.ABC)
-    Implements base parsed object (part of API json response)
 """
 
 import abc
@@ -28,72 +27,70 @@ class ParsedObject(abc.ABC):
         - definitions.
 
     Considering that simple response might look like that (copied from https://dictionaryapi.dev/):
-    ```json
-    [
-        {
-          "word": "hello",
-          "phonetics": [
+    .. code-block:: json
+        [
             {
-              "text": "/həˈloʊ/",
-              "audio": "https://lex-audio.useremarkable.com/mp3/hello_us_1_rr.mp3"
-            },
-            {
-              "text": "/hɛˈloʊ/",
-              "audio": "https://lex-audio.useremarkable.com/mp3/hello_us_2_rr.mp3"
-            }
-          ],
-          "meanings": [
-            {
-              "partOfSpeech": "exclamation",
-              "definitions": [
+              "word": "hello",
+              "phonetics": [
                 {
-                  "definition": "Used as a greeting or to begin a phone conversation.",
-                  "example": "hello there, Katie!"
+                  "text": "/həˈloʊ/",
+                  "audio": "https://lex-audio.useremarkable.com/mp3/hello_us_1_rr.mp3"
+                },
+                {
+                  "text": "/hɛˈloʊ/",
+                  "audio": "https://lex-audio.useremarkable.com/mp3/hello_us_2_rr.mp3"
                 }
-              ]
-            },
-            {
-              "partOfSpeech": "noun",
-              "definitions": [
+              ],
+              "meanings": [
                 {
-                  "definition": "An utterance of “hello”; a greeting.",
-                  "example": "she was getting polite nods and hellos from people",
-                  "synonyms": [
-                    "greeting",
-                    "welcome",
-                    "salutation",
-                    "saluting",
-                    "hailing",
-                    "address",
-                    "hello",
-                    "hallo"
+                  "partOfSpeech": "exclamation",
+                  "definitions": [
+                    {
+                      "definition": "Used as a greeting or to begin a phone conversation.",
+                      "example": "hello there, Katie!"
+                    }
+                  ]
+                },
+                {
+                  "partOfSpeech": "noun",
+                  "definitions": [
+                    {
+                      "definition": "An utterance of “hello”; a greeting.",
+                      "example": "she was getting polite nods and hellos from people",
+                      "synonyms": [
+                        "greeting",
+                        "welcome",
+                        "salutation",
+                        "saluting",
+                        "hailing",
+                        "address",
+                        "hello",
+                        "hallo"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "partOfSpeech": "intransitive verb",
+                  "definitions": [
+                    {
+                      "definition": "Say or shout “hello”; greet someone.",
+                      "example": "I pressed the phone button and helloed"
+                    }
                   ]
                 }
               ]
-            },
-            {
-              "partOfSpeech": "intransitive verb",
-              "definitions": [
-                {
-                  "definition": "Say or shout “hello”; greet someone.",
-                  "example": "I pressed the phone button and helloed"
-                }
-              ]
             }
-          ]
-        }
-    ]
-    ```
-
-    .. attr:: _data dict: part of API json response
+        ]
     """
 
     def __init__(self, data: dict) -> None:
         """
-        Get data presented in python ``dict`` and set it in instance (with ``_data`` param).
+        Init base parsed object instance.
+        Get data presented in python :obj:`dict` and set it in instance (with ``_data`` param).
 
         :param data: part of API json response
-        :type data: dict
+        :type data: :obj:`dict`
         """
 
         self._data = data

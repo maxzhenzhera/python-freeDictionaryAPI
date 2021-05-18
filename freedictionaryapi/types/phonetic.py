@@ -2,7 +2,6 @@
 Contains phonetic type.
 
 .. class Phonetic(ParsedObject)
-    Implements phonetic type (info about phonetic)
 """
 
 from .base import ParsedObject
@@ -17,12 +16,6 @@ class Phonetic(ParsedObject):
     that consists of phonetics data:
         * text - transcription;
         * audio - links on pronunciation (mp3 audio file).
-
-    .. property:: text(self) -> str:
-    .. property:: audio(self) -> str
-            aliases of the properties above
-    .. property:: transcription(self) -> str
-    .. property:: link_on_audio_with_pronunciation(self) -> str
     """
 
     def __repr__(self) -> str:
@@ -31,14 +24,14 @@ class Phonetic(ParsedObject):
 
     @property
     def text(self) -> str:
-        """ Get text of phonetic """
+        """ Text of phonetic (transcription) """
         text: str = self._data.get('text')
 
         return text
 
     @property
     def audio(self) -> str:
-        """ Get link of audio (mp3) of phonetic """
+        """ Audio of phonetic (link on audio .mp3) """
         audio: str = self._data.get('audio')
 
         return audio
@@ -47,10 +40,10 @@ class Phonetic(ParsedObject):
 
     @property
     def transcription(self) -> str:
-        """ Alias of ``text`` property """
+        """ Alias of :obj:`text` property """
         return self.text
 
     @property
     def link_on_audio_with_pronunciation(self) -> str:
-        """ Alias of ``audio`` property """
+        """ Alias of :obj:`audio` property """
         return self.audio
