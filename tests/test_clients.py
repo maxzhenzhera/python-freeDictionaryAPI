@@ -7,11 +7,11 @@ Contains tests for clients.
 
 import pytest
 
-from dictionaryapi.clients import (
+from freedictionaryapi.clients import (
     AsyncDictionaryApiClient,
     DictionaryApiClient
 )
-from dictionaryapi.errors import API_ERRORS_MAPPER
+from freedictionaryapi.errors import API_ERRORS_MAPPER
 
 
 class TestAsyncDictionaryApiClient:
@@ -34,10 +34,16 @@ class TestAsyncDictionaryApiClient:
     # tests ------------------------------------------------------------------------------------------------------------
 
     def test_error_raising_on_wrong_language_argument(self):
-        # wrong_language_argument is not instance of languages.LanguageCodes
+        # wrong_language_argument is not an instance of languages.LanguageCodes
         wrong_language_argument = 'EN'
         with pytest.raises(TypeError) as raised_error:
             _ = AsyncDictionaryApiClient(default_language_code=wrong_language_argument)
+
+    def test_error_raising_on_wrong_session_argument(self):
+        # wrong_session_argument is not an instance of aiohttp.ClientSession
+        wrong_session_argument = 'I am not aiohttp client session'
+        with pytest.raises(TypeError) as raised_error:
+            _ = AsyncDictionaryApiClient(session=wrong_session_argument)
 
     @pytest.mark.asyncio
     async def test_404_error_raising_on_nonexistent_word_searching(self, client: AsyncDictionaryApiClient):
@@ -45,7 +51,7 @@ class TestAsyncDictionaryApiClient:
         with pytest.raises(error) as raised_error:
             nonexistent_word = 'blablablabla'
 
-            # _ = client._fetch_json()
+            # _ = client.fetch_json()
             _ = await client.fetch_parser(nonexistent_word)
             # _ = client.fetch_word()
 
@@ -70,16 +76,22 @@ class TestDictionaryApiClient:
     # tests ------------------------------------------------------------------------------------------------------------
 
     def test_error_raising_on_wrong_language_argument(self):
-        # wrong_language_argument is not instance of languages.LanguageCodes
+        # wrong_language_argument is not an instance of languages.LanguageCodes
         wrong_language_argument = 'EN'
         with pytest.raises(TypeError) as raised_error:
-            _ = AsyncDictionaryApiClient(default_language_code=wrong_language_argument)
+            _ = DictionaryApiClient(default_language_code=wrong_language_argument)
 
-    def test_404_error_raising_on_nonexistent_word_searching(self, client: AsyncDictionaryApiClient):
+    def test_error_raising_on_wrong_client_argument(self):
+        # wrong_client_argument is not an instance of httpx.Client
+        wrong_client_argument = 'I am not httpx client'
+        with pytest.raises(TypeError) as raised_error:
+            _ = DictionaryApiClient(client=wrong_client_argument)
+
+    def test_404_error_raising_on_nonexistent_word_searching(self, client: DictionaryApiClient):
         error = API_ERRORS_MAPPER.get(404)
         with pytest.raises(error) as raised_error:
             nonexistent_word = 'blablablabla'
 
-            # _ = client._fetch_json()
+            # _ = client.fetch_json()
             _ = client.fetch_parser(nonexistent_word)
             # _ = client.fetch_word()

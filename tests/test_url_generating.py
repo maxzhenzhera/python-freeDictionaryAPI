@@ -6,8 +6,8 @@ Contains tests for API url generation.
 
 import pytest
 
-from dictionaryapi.languages import LanguageCodes
-from dictionaryapi.urls import ApiUrl
+from freedictionaryapi.languages import LanguageCodes
+from freedictionaryapi.urls import ApiUrl
 
 
 class TestApiUrlGeneration:

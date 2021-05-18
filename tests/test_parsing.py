@@ -9,11 +9,11 @@ import json
 
 import pytest
 
-from dictionaryapi.parsers import (
+from freedictionaryapi.parsers import (
     DictionaryApiParser,
     DictionaryApiErrorParser
 )
-from dictionaryapi.types import (
+from freedictionaryapi.types import (
     Definition,
     Error,
     Meaning,
