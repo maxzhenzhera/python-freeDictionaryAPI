@@ -2,7 +2,6 @@
 Contains class for work with API urls.
 
 .. class:: ApiUrl
-    Implements work with API urls. To get needed for request url - init instance and invoke .get_url() method.
 """
 
 import logging
@@ -23,13 +22,7 @@ class ApiUrl:
     """
     Implements API url object.
 
-    .. attr:: API_URL_PATTERN
-
-    .. property:: word(self) -> str
-    .. property:: language_code(self) -> LanguageCodes
-
-    .. method:: get_url(self) -> str
-        Get API url to request
+    .. attribute:: API_URL_PATTERN str: pattern of the API URL (format string with curly brackets filled params names)
     """
 
     # pattern:
@@ -43,23 +36,23 @@ class ApiUrl:
 
     def __init__(self, word: str, *, language_code: LanguageCodes = DEFAULT_LANGUAGE_CODE) -> None:
         """
-        Handle params for API url.
+        Init API URL instance.
 
         :param word: searched word
-        :type word: str
+        :type word: :obj:`str`
 
-        :keyword language_code: language of the searched word (by default English US)
-        :type language_code: LanguageCodes
+        :keyword language_code: language of the searched word
+        :type language_code: :obj:`LanguageCodes`
 
         :raises ValueError: raised if ``word`` is empty
-        :raises TypeError: raised if ``language_code`` is not instance of ``LanguageCodes``
+        :raises TypeError: raised if ``language_code`` is not an instance of :obj:`LanguageCodes`
         """
 
         self._word = str(word).strip()
 
         if not self._word:
             message = (
-                '``word`` argument has passed with empty value. '
+                '`word` argument has been passed with empty value. '
                 'Expected to get non-empty value! '
                 f'Got (word={self._word!r}).'
             )
@@ -67,7 +60,7 @@ class ApiUrl:
 
         if len(self._word.split()) > 1:
             message = (
-                'For ``word`` argument has passed string that contains more than one word, '
+                'For `word` argument has passed string that contains more than one word, '
                 'most likely response won`t be successful. '
                 'Expected to get string that contains one word! '
                 f'Got (word={self._word!r})'
@@ -78,9 +71,9 @@ class ApiUrl:
 
         if not isinstance(language_code, LanguageCodes):
             message = (
-                'For ``language_code`` has passed unsupported type. '
-                'Expected to get argument with type ``LanguageCodes``! '
-                f'Got (language_code={self._language_code!r})'
+                'For `language_code` has been passed object with unsupported type. '
+                'Expected to get argument with type `freedictionaryapi.languages.LanguageCodes`! '
+                f'Got (language_code={language_code!r})'
             )
             raise TypeError(message)
 
@@ -90,21 +83,23 @@ class ApiUrl:
 
     @property
     def word(self) -> str:
-        """ Get word that used in url """
+        """ Word """
         return self._word
 
     @property
     def language_code(self) -> LanguageCodes:
-        """ Get language code that used in url """
+        """ Language code """
         return self._language_code
 
     def get_url(self) -> str:
-        """ Get prepared (with substituted word and language code) url that ready for request """
+        """ Get prepared (with substituted word and language code) url that is ready for request """
         url = self.API_URL_PATTERN.format(
             word=self._word,
             language_code=self._language_code.value
         )
 
-        logger.debug(f'Generated url={url!r} with word={self._word!r} and language_code={self._language_code!r}')
+        logger.debug(
+            f'Generated url: <{url!r}> with word: <{self._word!r}> and language_code: <{self._language_code!r}>.'
+        )
 
         return url

@@ -9,7 +9,10 @@ Contains enumerations of supported languages.
 from enum import Enum
 
 
-__all__ = ['LanguageCodes', 'DEFAULT_LANGUAGE_CODE']
+__all__ = [
+    'LanguageCodes',
+    'DEFAULT_LANGUAGE_CODE'
+]
 
 
 class LanguageCodes(Enum):

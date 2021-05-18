@@ -102,7 +102,7 @@ class DictionaryApiClient(BaseDictionaryApiClient):
 
         url, language_code = self._generate_url(word, language_code)
 
-        logger.info(f'Send request to API with word <{word!r}> and language code: <{language_code!r}>. URL: {url!r}.')
+        logger.info(f'Send request to API with word: <{word!r}> and language code: <{language_code!r}>. URL: {url!r}.')
 
         response = self._client.get(url)
         json_response = response.json()

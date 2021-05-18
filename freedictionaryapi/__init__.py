@@ -1,7 +1,7 @@
 """
 Implements convenient API wrapper for Free Dictionary API.
-    WEB:    [https://dictionaryapi.dev/]
-    Github: [https://github.com/meetDeveloper/freeDictionaryAPI]
+    - WEB:    [https://dictionaryapi.dev/]
+    - Github: [https://github.com/meetDeveloper/freeDictionaryAPI]
 """
 
 from . import (
@@ -46,4 +46,4 @@ __all__ = [
 ]
 
 
-__version__ = 0.1
+__version__ = '0.0.1'
