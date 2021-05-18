@@ -133,7 +133,7 @@ class DictionaryApiClient(BaseDictionaryApiClient):
     def fetch_word(self, word: str, language_code: Optional[LanguageCodes] = None) -> Word:
         """
         Fetch word (:obj:`Word`) - parsed object that has all word info.
-        Shortcut for the ``word`` property  of the :obj:`DictionaryApiParser` (``DictionaryApiParser.word``).
+        Shortcut for the :obj:`DictionaryApiParser.word`.
 
         :param word: searched word
         :type word: :obj:`str`
