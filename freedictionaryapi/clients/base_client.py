@@ -133,7 +133,7 @@ class BaseDictionaryApiClient(abc.ABC):
         :param language_code: language of the searched word
         :type language_code: :obj:`Optional[LanguageCodes]`
 
-        :return: json response (supposed to be ``list`` or ``dict``)
+        :return: json response (supposed to be :obj:`list` or :obj:`dict`)
         :rtype: :obj:`Any`
 
         :raises :obj:`DictionaryApiError`` and inherited errors: raised
