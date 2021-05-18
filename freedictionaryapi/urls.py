@@ -25,8 +25,8 @@ class ApiUrl:
 
     .. attr:: API_URL_PATTERN
 
-    ..property:: word(self) -> str
-    ..property:: language_code(self) -> LanguageCodes
+    .. property:: word(self) -> str
+    .. property:: language_code(self) -> LanguageCodes
 
     .. method:: get_url(self) -> str
         Get API url to request
