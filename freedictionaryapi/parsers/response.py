@@ -2,7 +2,6 @@
 Contains dictionary API response parser.
 
 .. class:: DictionaryApiParser
-    Implements dictionary API response parser
 """
 
 from typing import Union
@@ -22,57 +21,29 @@ __all__ = ['DictionaryApiParser']
 class DictionaryApiParser(BaseDictionaryApiParser):
     """
     Implements dictionary API response parser.
-    Parses from API json response in ``ParsedObject`` types.
+    Parses from API json response in :obj:`ParsedObject` types.
 
     For getting data like from simple API response
-    but with fields hinting: get ``Word`` object with ``word`` property
+    but with fields hinting: get :obj:`Word`` object with :obj:`DictionaryApiParser.word` property
     and navigate through.
 
     For getting some sample data quickly
     it is possible to use some of prepared methods and properties.
-
-
-    .. attr:: _response Union[dict, list]: API json response loaded in python object
-    .. attr:: _data dict: data for parsing actually
-    .. attr:: _word Word: parsed object that contains word info
-
-    .. property:: data(self) -> dict
-    .. property:: word(self) -> Word
-    .. property:: phonetics(self) -> list[Phonetic]
-    .. property:: meanings(self) -> list[Meaning]
-
-    .. method:: _get_all_definitions_as_parsed_objects(self) -> list[Definition]
-        Get definitions as parsed objects (for DRY in getting examples, synonyms and definitions actually)
-
-    .. method:: get_transcription(self) -> str
-        Get transcription (if few fetched return first)
-    .. method:: get_all_transcriptions(self) -> list[str]
-        Get all transcriptions
-    .. method:: get_link_on_audio_with_pronunciation(self) -> str
-        Get link on audio with pronunciation (if few fetched return first)
-    .. method:: get_all_parts_of_speech(self) -> list[str]
-        Get all parts of speech
-    .. method:: get_all_definitions(self) -> list[str]
-        Get all definitions (sentences, phrases that express meaning of the word)
-    .. method:: get_all_examples(self) -> list[str]
-        Get all examples of word usage
-    .. method:: get_all_synonyms(self) -> list[str]
-        Get all synonyms
     """
 
     def __init__(self, response: Union[dict, list]) -> None:
         """
-        Init dictionary API parser.
+        Init dictionary API parser response intsance.
         Parse API response.
 
-        ``response`` has type ``list``
+        ``response`` has type :obj:`list`
         since in response we have such format
         and simpler would be just
         with the web library do like this:
         ``response.json()`` -  to get python object loaded from json.
 
         :param response: API json response loaded in python object
-        :type response: Union[dict, list]
+        :type response: :obj:`Union[dict, list]`
         """
 
         super().__init__(response)
@@ -82,7 +53,7 @@ class DictionaryApiParser(BaseDictionaryApiParser):
         elif isinstance(self._response, dict):
             # if accidentally has been passed
             # ``dict`` as response object
-            # we consider this
+            # we handle this
             self._data: dict = self._response
         else:
             message = (
@@ -102,26 +73,26 @@ class DictionaryApiParser(BaseDictionaryApiParser):
 
     @property
     def data(self) -> dict:
-        """ Get ``dict`` of the API response """
+        """ Response data """
         return self._data
 
     @property
     def word(self) -> Word:
-        """ Get word object """
+        """ Word object """
         return self._word
 
     @property
     def phonetics(self) -> list[Phonetic]:
-        """ Get phonetics data. Shortcut for ``word.phonetics`` """
+        """ Phonetics data. Shortcut for :obj:`Word.phonetics` """
         return self._word.phonetics
 
     @property
     def meanings(self) -> list[Meaning]:
-        """ Get meanings data. Shortcut for ``word.meanings`` """
+        """ Meanings data. Shortcut for :obj:`Word.meanings` """
         return self._word.meanings
 
     def _get_all_definitions_as_parsed_objects(self) -> list[Definition]:
-        """ Get list of all definitions (as parsed object) """
+        """ Get list of all definitions (as :obj:`ParsedObject`) """
         definitions = [
             definition
             for meaning in self.meanings
@@ -148,7 +119,7 @@ class DictionaryApiParser(BaseDictionaryApiParser):
     def get_link_on_audio_with_pronunciation(self) -> str:
         """
         Get link on audio with pronunciation. If in response fetched few return first.
-        For more detailed (get few links) use ``phonetics`` property - it`ll be more convenient and simple.
+        For more detailed (get few links) use :obj:`Word.phonetics` property - it`ll be more convenient and simpler.
         """
 
         phonetic = self.phonetics[0]

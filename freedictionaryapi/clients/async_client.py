@@ -58,7 +58,7 @@ class AsyncDictionaryApiClient(BaseDictionaryApiClient):
             if not isinstance(session, aiohttp.ClientSession):
                 message = (
                     'For `session` has been passed object with unsupported type. '
-                    'Expected to get argument with type ``aiohttp.ClientSession``! '
+                    'Expected to get argument with type <aiohttp.ClientSession>! '
                     f'Got (session={self._session!r})'
                 )
                 raise TypeError(message)

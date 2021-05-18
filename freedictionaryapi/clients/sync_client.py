@@ -58,7 +58,7 @@ class DictionaryApiClient(BaseDictionaryApiClient):
             if not isinstance(self._client, httpx.Client):
                 message = (
                     'For `client` has been passed object with unsupported type. '
-                    'Expected to get argument with type ``httpx.Client``! '
+                    'Expected to get argument with type <httpx.Client>! '
                     f'Got (client={self._client!r})'
                 )
                 raise TypeError(message)

@@ -1,8 +1,7 @@
 """
 Contains dictionary API error response parser.
 
-.. class:: DictionaryApiErrorParser
-    Implements dictionary API error response parser
+.. class:: DictionaryApiErrorParser(BaseDictionaryApiParser)
 """
 
 from .base import BaseDictionaryApiParser
@@ -16,32 +15,19 @@ class DictionaryApiErrorParser(BaseDictionaryApiParser):
     """
     Implements dictionary API error response parser.
 
-    Contains useful ``get_formatted_error_message`` method
+    Contains useful :method:`get_formatted_error_message` method
     that return pretty formatted error message.
-
-    .. attrs:: _status_code int: response status code
-    .. attr:: _response dict: API json response loaded in python object
-    .. attrs:: _data dict: data for parsing actually
-    .. attrs:: _error Error: parsed object that contains error info
-
-    .. property:: status_code(self) -> int
-    .. property:: title(self) -> str
-    .. property:: message(self) -> str
-    .. property:: resolution(self) -> str
-
-    .. method:: get_formatted_error_message(self) -> str
-        Get formatted error message (might be used on errors raising)
     """
 
     def __init__(self, status_code: int, response: dict) -> None:
         """
-        Init dictionary API error response parser.
+        Init dictionary API error response parser instance.
         Parse API error response.
 
         :param status_code: http status code
-        :type status_code: int
+        :type status_code: :obj:`int`
         :param response: API json response loaded in python object
-        :type response: dict
+        :type response: :obj:`dict`
         """
 
         super().__init__(response)
@@ -63,27 +49,27 @@ class DictionaryApiErrorParser(BaseDictionaryApiParser):
 
     @property
     def data(self) -> dict:
-        """ Get ``dict`` of the API response """
+        """ API response data (:obj:`dict`) """
         return self._data
 
     @property
     def status_code(self) -> int:
-        """ Get error http status code """
+        """ Error response status code """
         return self._status_code
 
     @property
     def title(self) -> str:
-        """ Get error title. Shortcut for ``error.title`` """
+        """ Error title. Shortcut for :obj:`Error.title` """
         return self._error.title
 
     @property
     def message(self) -> str:
-        """ Get error message. Shortcut for ``error.message`` """
+        """ Error message. Shortcut for :obj:`Error.message` """
         return self._error.message
 
     @property
     def resolution(self) -> str:
-        """ Get error resolution. Shortcut for ``error.resolution`` """
+        """ Error resolution. Shortcut for `Error.resolution` """
         return self._error.resolution
 
     def get_formatted_error_message(self) -> str:
