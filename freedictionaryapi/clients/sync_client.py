@@ -4,11 +4,8 @@ Contains sync dictionary API client.
 FOR WORK REQUIRE ``httpx`` PACKAGE TO BE INSTALLED.
 
 .. class:: DictionaryApiClient(BaseDictionaryApiClient)
-    Implements sync dictionary API client
 """
 
-import contextlib
-from http import HTTPStatus
 import logging
 from typing import (
     Any,
@@ -18,20 +15,12 @@ from typing import (
 import httpx
 
 from .base_client import BaseDictionaryApiClient
-from ..errors import (
-    DictionaryApiError,
-    API_ERRORS_MAPPER
-)
 from ..languages import (
     DEFAULT_LANGUAGE_CODE,
     LanguageCodes
 )
-from ..parsers import (
-    DictionaryApiParser,
-    DictionaryApiErrorParser
-)
+from ..parsers import DictionaryApiParser
 from ..types import Word
-from ..urls import ApiUrl
 
 
 __all__ = ['DictionaryApiClient']
@@ -43,131 +32,116 @@ logger = logging.getLogger(__name__)
 class DictionaryApiClient(BaseDictionaryApiClient):
     """
     Implements sync dictionary API client.
-
-    .. attrs:: _client httpx.Client: client for http requests
-
-    .. property:: client(self) -> aiohttp.ClientSession
-
-    .. method:: close(self) -> None
-        Close client
-    .. method:: _fetch_json(self, word: str, language_code: Optional[LanguageCodes] = None) -> Any
-        Fetch API json response
-    .. method:: fetch_parser(self, word: str, language_code: Optional[LanguageCodes] = None) -> DictionaryApiParser
-        Fetch parser
-    .. method:: fetch_word(self, word: str, language_code: Optional[LanguageCodes] = None) -> Word
-        Fetch word (parsed object)
     """
 
-    def __init__(self,
-                 default_language_code: LanguageCodes = DEFAULT_LANGUAGE_CODE,
-                 *,
+    def __init__(self, default_language_code: LanguageCodes = DEFAULT_LANGUAGE_CODE, *,
                  client: Optional[httpx.Client] = None
                  ) -> None:
         """
-        Init sync dictionary API client.
+        Init sync dictionary API client instance.
 
-        :param default_language_code: default language of the searched words (by default English US)
+        :param default_language_code: default language of the searched words for the client
         :type default_language_code: LanguageCodes
+        :keyword client: ``httpx`` client to make HTTP requests
+        :type client: :obj:`Optional[httpx.Client]`
 
-        :keyword client: client for sync requests
-        :type client: httpx.Client
-
-        :raises TypeError: raised if ``language_code`` is not instance of ``LanguageCodes``
+        :raises TypeError:
+            - if ``language_code`` is not an instance of :obj:`LanguageCodes`
+            - if ``client`` is not an instance of :obj:`httpx.Client`
         """
 
         super().__init__(default_language_code)
 
         if client:
             self._client = client
+
+            if not isinstance(self._client, httpx.Client):
+                message = (
+                    'For `client` has been passed object with unsupported type. '
+                    'Expected to get argument with type ``httpx.Client``! '
+                    f'Got (client={self._client!r})'
+                )
+                raise TypeError(message)
         else:
             self._client = httpx.Client()
 
-            logger.debug(f'``httpx`` client has been created for sync client: {self._client!r}.')
+            logger.debug(f'``httpx.Client`` client has been created for sync dictionary API client: {self._client!r}.')
 
-        logger.info('Sync client has been successfully init-ed.')
+        logger.info('Client has been init-ed.')
 
     @property
     def client(self) -> httpx.Client:
-        """ Get ``httpx`` client """
+        """ :obj:`httpx.Client` used for making HTTP requests """
         return self._client
 
     def __repr__(self) -> str:
         class_name = self.__class__.__name__
         return f'{class_name}(default_language_code={self._default_language_code!r})'
 
-    def _fetch_json(self, word: str, language_code: Optional[LanguageCodes] = None) -> Any:
+    def __enter__(self) -> 'DictionaryApiClient':
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
+
+    def fetch_json(self, word: str, language_code: Optional[LanguageCodes] = None) -> Any:
         """
-        Fetch API json response.
+        Fetch API json response that loaded in Python object (``response.json()``).
 
         :param word: searched word
-        :type word: str
+        :type word: :obj:`str`
         :param language_code: language of the searched word
-        :type language_code: Optional[LanguageCodes]
+        :type language_code: :obj:`Optional[LanguageCodes]`
 
         :return: json response (supposed to be ``list`` or ``dict``)
-        :rtype: Any
+        :rtype: :obj:`Any`
 
-        :raises ``DictionaryApiError`` and inherited errors: raised
+        :raises :obj:`DictionaryApiError`` and inherited errors: raised
             when unsuccessful status code got of API request
         """
 
-        language_code = self._default_language_code if language_code is None else language_code
-        url = ApiUrl(word, language_code=language_code).get_url()
+        url, language_code = self._generate_url(word, language_code)
 
-        logger.info(f'Send request to API with url: {url!r}.')
+        logger.info(f'Send request to API with word <{word!r}> and language code: <{language_code!r}>. URL: {url!r}.')
 
-        response: httpx.Response
         response = self._client.get(url)
         json_response = response.json()
 
-        response_status_code = response.status_code
-        if response_status_code != HTTPStatus.OK:
-            # get error type by status code from error mapper
-            # by default get common error
-            error = API_ERRORS_MAPPER.get(response_status_code, DictionaryApiError)
+        # logging - handling of API errors (and raising them)
+        analyzed_response = self._analyze_response(url, response.status_code, json_response)
 
-            error_parser = DictionaryApiErrorParser(response_status_code, json_response)
-            error_message = error_parser.get_formatted_error_message()
-
-            logger.info(f'Response is !NOT! successful [code={response_status_code}] from url: {url}.')
-
-            raise error(error_message)
-
-        logger.info(f'Response is successful [code={response_status_code}] from url: {url}.')
-
-        return json_response
+        return analyzed_response
 
     def fetch_parser(self, word: str, language_code: Optional[LanguageCodes] = None) -> DictionaryApiParser:
         """
         Fetch dictionary API parser.
 
         :param word: searched word
-        :type word: str
-        :param language_code: language of the searched word
-        :type language_code: Optional[LanguageCodes]
+        :type word: :obj:`str`
+        :param language_code: language of the searched word (`word`)
+        :type language_code: :obj:`Optional[LanguageCodes]`
 
         :return: dictionary API parser
-        :rtype: DictionaryApiParser
+        :rtype: :obj:`DictionaryApiParser`
         """
 
-        json_response = self._fetch_json(word, language_code)
+        json_response = self.fetch_json(word, language_code)
         parser = DictionaryApiParser(json_response)
 
         return parser
 
     def fetch_word(self, word: str, language_code: Optional[LanguageCodes] = None) -> Word:
         """
-        Fetch word (parsed object that has all data fields as
-        class attrs).
-        Shortcut for ``DictionaryApiParser.word``.
+        Fetch word (:obj:`Word`) - parsed object that has all word info.
+        Shortcut for the ``word`` property  of the :obj:`DictionaryApiParser` (``DictionaryApiParser.word``).
 
         :param word: searched word
-        :type word: str
+        :type word: :obj:`str`
         :param language_code: language of the searched word
-        :type language_code: Optional[LanguageCodes]
+        :type language_code: :obj:`Optional[LanguageCodes]`
 
         :return: word (parsed object)
-        :rtype: Word
+        :rtype: :obj:`Word`
         """
 
         parser = self.fetch_parser(word, language_code)
@@ -175,22 +149,8 @@ class DictionaryApiClient(BaseDictionaryApiClient):
 
         return word
 
-    @classmethod
-    @contextlib.contextmanager
-    def manager(cls, *args, **kwargs) -> 'DictionaryApiParser':
-        """
-        Get context manager for parser client.
-        Accepting all params from constructor.
-        """
-
-        client = cls(*args, **kwargs)
-        try:
-            yield client
-        finally:
-            client.close()
-
     def close(self) -> None:
         """ Close dictionary API client """
         self._client.close()
 
-        logger.info('Client has been successfully closed.')
+        logger.info('Client has been closed.')

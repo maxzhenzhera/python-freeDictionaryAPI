@@ -4,11 +4,8 @@ Contains async dictionary API client.
 FOR WORK REQUIRE ``aiohttp`` PACKAGE TO BE INSTALLED.
 
 .. class:: AsyncDictionaryApiClient(BaseDictionaryApiClient)
-    Implements async dictionary API client
 """
 
-import contextlib
-from http import HTTPStatus
 import logging
 from typing import (
     Any,
@@ -18,20 +15,12 @@ from typing import (
 import aiohttp
 
 from .base_client import BaseDictionaryApiClient
-from ..errors import (
-    DictionaryApiError,
-    API_ERRORS_MAPPER
-)
 from ..languages import (
     DEFAULT_LANGUAGE_CODE,
     LanguageCodes
 )
-from ..parsers import (
-    DictionaryApiParser,
-    DictionaryApiErrorParser
-)
+from ..parsers import DictionaryApiParser
 from ..types import Word
-from ..urls import ApiUrl
 
 
 __all__ = ['AsyncDictionaryApiClient']
@@ -43,130 +32,117 @@ logger = logging.getLogger(__name__)
 class AsyncDictionaryApiClient(BaseDictionaryApiClient):
     """
     Implements async dictionary API client.
-
-    .. attrs:: _session aiohttp.ClientSession: session for http requests
-
-    .. property:: session(self) -> aiohttp.ClientSession
-
-    .. method:: close(self) -> None
-        Close client
-    .. method:: _fetch_json(self, word: str, language_code: Optional[LanguageCodes] = None) -> Any
-        Fetch API json response
-    .. method:: fetch_parser(self, word: str, language_code: Optional[LanguageCodes] = None) -> DictionaryApiParser
-        Fetch parser
-    .. method:: fetch_word(self, word: str, language_code: Optional[LanguageCodes] = None) -> Word
-        Fetch word (parsed object)
     """
 
-    def __init__(self,
-                 default_language_code: LanguageCodes = DEFAULT_LANGUAGE_CODE,
-                 *,
+    def __init__(self, default_language_code: LanguageCodes = DEFAULT_LANGUAGE_CODE, *,
                  session: Optional[aiohttp.ClientSession] = None
                  ) -> None:
         """
-        Init async dictionary API client.
+        Init async dictionary API client instance.
 
-        :param default_language_code: default language of the searched words (by default English US)
-        :type default_language_code: LanguageCodes
+        :param default_language_code: default language of the searched words for the client
+        :type default_language_code: :obj:`LanguageCodes`
+        :keyword session: ``aiohttp`` session to make HTTP requests asynchronously
+        :type session: :obj:`Optional[aiohttp.ClientSession]`
 
-        :keyword session: session for async requests
-        :type session: aiohttp.ClientSession
-
-        :raises TypeError: raised if ``language_code`` is not instance of ``LanguageCodes``
+        :raises TypeError:
+            - if ``language_code`` is not an instance of :obj:`LanguageCodes`
+            - if ``session`` is not an instance of :obj:`aiohttp.ClientSession`
         """
 
         super().__init__(default_language_code)
 
         if session:
             self._session = session
+
+            if not isinstance(session, aiohttp.ClientSession):
+                message = (
+                    'For `session` has been passed object with unsupported type. '
+                    'Expected to get argument with type ``aiohttp.ClientSession``! '
+                    f'Got (session={self._session!r})'
+                )
+                raise TypeError(message)
         else:
             self._session = aiohttp.ClientSession()
 
-            logger.debug(f'``aiohttp`` client session has been created for async client: {self._session!r}.')
+            logger.debug(f'``aiohttp.ClientSession`` session has been created for async API client: {self._session!r}.')
 
         logger.info('Async client has been successfully init-ed.')
 
     @property
     def session(self) -> aiohttp.ClientSession:
-        """ Get ``aiohttp`` session """
+        """ :obj:`aiohttp.ClientSession` used for making HTTP requests """
         return self._session
 
     def __repr__(self) -> str:
         class_name = self.__class__.__name__
         return f'{class_name}(default_language_code={self._default_language_code!r})'
 
-    async def _fetch_json(self, word: str, language_code: Optional[LanguageCodes] = None) -> Any:
+    async def __aenter__(self) -> 'AsyncDictionaryApiClient':
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        await self.close()
+
+    async def fetch_json(self, word: str, language_code: Optional[LanguageCodes] = None) -> Any:
         """
-        Fetch API json response.
+        Fetch API json response that loaded in Python object (``response.json()``).
 
         :param word: searched word
-        :type word: str
+        :type word: :obj:`str`
         :param language_code: language of the searched word
-        :type language_code: Optional[LanguageCodes]
+        :type language_code: :obj:`Optional[LanguageCodes]`
 
         :return: json response (supposed to be ``list`` or ``dict``)
-        :rtype: Any
+        :rtype: :obj:`Any`
 
-        :raises ``DictionaryApiError`` and inherited errors: raised
+        :raises :obj:`DictionaryApiError`` and inherited errors: raised
             when unsuccessful status code got of API request
         """
 
-        language_code = self._default_language_code if language_code is None else language_code
-        url = ApiUrl(word, language_code=language_code).get_url()
+        url, language_code = self._generate_url(word, language_code)
 
-        logger.info(f'Send request to API with url: {url!r}.')
+        logger.info(f'Send request to API with word <{word!r}> and language code: <{language_code!r}>. URL: {url!r}.')
 
         response: aiohttp.ClientResponse
         async with self._session.get(url) as response:
             json_response = await response.json()
 
-        response_status_code = response.status
-        if response_status_code != HTTPStatus.OK:
-            # get error type by status code from error mapper
-            # by default get common error
-            error = API_ERRORS_MAPPER.get(response_status_code, DictionaryApiError)
+        # logging - handling of API errors (and raising them)
+        analyzed_response = self._analyze_response(url, response.status, json_response)
 
-            error_parser = DictionaryApiErrorParser(response_status_code, json_response)
-            error_message = error_parser.get_formatted_error_message()
-
-            logger.info(f'Response is !NOT! successful [code={response_status_code}] from url: {url}.')
-
-            raise error(error_message)
-
-        logger.info(f'Response is successful [code={response_status_code}] from url: {url}.')
-
-        return json_response
+        return analyzed_response
 
     async def fetch_parser(self, word: str, language_code: Optional[LanguageCodes] = None) -> DictionaryApiParser:
         """
         Fetch dictionary API parser.
 
         :param word: searched word
-        :type word: str
-        :param language_code: language of the searched word
-        :type language_code: Optional[LanguageCodes]
+        :type word: :obj:`str`
+        :param language_code: language of the searched word (`word`)
+        :type language_code: :obj:`Optional[LanguageCodes]`
 
         :return: dictionary API parser
-        :rtype: DictionaryApiParser
+        :rtype: :obj:`DictionaryApiParser`
         """
 
-        json_response = await self._fetch_json(word, language_code)
+        json_response = await self.fetch_json(word, language_code)
         parser = DictionaryApiParser(json_response)
 
         return parser
 
     async def fetch_word(self, word: str, language_code: Optional[LanguageCodes] = None) -> Word:
         """
-        Fetch word (parsed object that has all word info).
-        Shortcut for ``DictionaryApiParser.word``.
+        Fetch word (:obj:`Word`) - parsed object that has all word info.
+        Shortcut for the ``word`` property  of the :obj:`DictionaryApiParser` (``DictionaryApiParser.word``).
 
         :param word: searched word
-        :type word: str
+        :type word: :obj:`str`
         :param language_code: language of the searched word
-        :type language_code: Optional[LanguageCodes]
+        :type language_code: :obj:`Optional[LanguageCodes]`
 
         :return: word (parsed object)
-        :rtype: Word
+        :rtype: :obj:`Word`
         """
 
         parser = await self.fetch_parser(word, language_code)
@@ -174,22 +150,8 @@ class AsyncDictionaryApiClient(BaseDictionaryApiClient):
 
         return word
 
-    @classmethod
-    @contextlib.asynccontextmanager
-    async def manager(cls, *args, **kwargs) -> 'DictionaryApiParser':
-        """
-        Get context manager for parser client.
-        Accepting all params from constructor.
-        """
-
-        client = cls(*args, **kwargs)
-        try:
-            yield client
-        finally:
-            await client.close()
-
     async def close(self) -> None:
         """ Close dictionary API client """
         await self._session.close()
 
-        logger.info('Client has been successfully closed.')
+        logger.info('Client has been closed.')
