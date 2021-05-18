@@ -1,16 +1,15 @@
 """
 Contains types of parsed objects.
 
-Structure of types relations:
+Types hierarchy:
 
-    - ParsedObject (Abstract class for all objects below)
+    ParsedObject (Abstract class for all objects below)
 
-        - Word (successful response)
-            - Phonetic
-            - Meaning
-                - Definition
-
-        - Error (error response)
+        +-- Word (successful response)
+            +-- Phonetic
+            +-- Meaning
+            |   +-- Definition
+        +-- Error (error response)
 """
 
 from .base import ParsedObject

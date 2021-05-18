@@ -1,19 +1,25 @@
 """
 Contains API errors.
 
-.. exception:: DictionaryApiError(Exception)
-    Common error for all API errors
-.. exception:: DictionaryApiNotFoundError(DictionaryApiError):
-    Raised on 404 status code
+Errors hierarchy:
 
-.. data:: API_ERRORS_MAPPER
-    Mapper of http status codes and error objects (exception classes)
+    DictionaryApiError
+        +-- DictionaryApiNotFoundError
+
+.. exception:: DictionaryApiError(Exception)
+.. exception:: DictionaryApiNotFoundError(DictionaryApiError):
+
+.. const:: API_ERRORS_MAPPER
 """
 
 from typing import Type
 
 
-__all__ = ['DictionaryApiError', 'DictionaryApiNotFoundError', 'API_ERRORS_MAPPER']
+__all__ = [
+    'DictionaryApiError',
+    'DictionaryApiNotFoundError',
+    'API_ERRORS_MAPPER'
+]
 
 
 class DictionaryApiError(Exception):
