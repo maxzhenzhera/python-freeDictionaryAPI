@@ -3,6 +3,10 @@ Contains clients for interacting with API.
 
 Available as sync as async clients.
 
+Also it is possible to inherit one of base classes
+(``sync`` or ``async``) and implement
+own client.
+
 Async client is powered with ``aiohttp``.
 Since ``aiohttp`` used in all async frameworks and libraries
 client works on-top of ``aiohttp``.
@@ -16,13 +20,18 @@ but
 ``aiohttp`` used more often in async projects.
 """
 
-from .base_client import BaseDictionaryApiClient
-from .sync_client import DictionaryApiClient
+from .base_async_client import BaseAsyncDictionaryApiClient
+from .base_sync_client import BaseDictionaryApiClient
 from .async_client import AsyncDictionaryApiClient
+from .sync_client import DictionaryApiClient
 
 
 __all__ = [
+    # base abstract classes
+    # that might be inherited manually
+    'BaseAsyncDictionaryApiClient',
     'BaseDictionaryApiClient',
-    'DictionaryApiClient',
-    'AsyncDictionaryApiClient'
+    # prepared clients (sync and async)
+    'AsyncDictionaryApiClient',
+    'DictionaryApiClient'
 ]

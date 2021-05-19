@@ -1,14 +1,13 @@
 """
-Contains base dictionary API client.
+Contains base dictionary API client interface.
 
-.. class:: BaseDictionaryApiClient(abc.ABC)
+.. class:: BaseDictionaryApiClientInterface(abc.ABC)
 """
 
 import abc
 import logging
 from http import HTTPStatus
 from typing import (
-    Any,
     Optional,
     Union
 )
@@ -21,25 +20,34 @@ from ..languages import (
     DEFAULT_LANGUAGE_CODE,
     LanguageCodes
 )
-from ..parsers import (
-    DictionaryApiParser,
-    DictionaryApiErrorParser
-)
-from ..types import Word
+from ..parsers import DictionaryApiErrorParser
 from ..urls import ApiUrl
 
 
-__all__ = ['BaseDictionaryApiClient']
+__all__ = ['BaseDictionaryApiClientInterface']
 
 
 logger = logging.getLogger(__name__)
 
 
-class BaseDictionaryApiClient(abc.ABC):
+class BaseDictionaryApiClientInterface(abc.ABC):
     """
-    Base dictionary API client.
-    Abstract client that supposed to be inherited
-    for ``sync`` and ``async`` clients.
+    Base dictionary API client interface.
+
+    Abstract client interface that supposed to be inherited
+    for ``sync`` and ``async`` **base** clients.
+
+    Here, interface:
+        Class that implements some useful API
+        and makes sense in inheritance
+        for other base clients
+        that also must implement this base API
+        but also provide some specific
+        such concrete abstract methods.
+
+    So, for implementing of ``sync`` and ``async`` base clients
+    base API is not repeated in code
+    but provided with inheritance from this interface.
     """
 
     def __init__(self, default_language_code: LanguageCodes = DEFAULT_LANGUAGE_CODE) -> None:
@@ -61,6 +69,10 @@ class BaseDictionaryApiClient(abc.ABC):
                 f'Got (language_code={self._default_language_code!r})'
             )
             raise TypeError(message)
+
+    def __repr__(self) -> str:
+        class_name = self.__class__.__name__
+        return f'{class_name}(default_language_code={self._default_language_code!r})'
 
     @property
     def default_language_code(self) -> LanguageCodes:
@@ -86,7 +98,8 @@ class BaseDictionaryApiClient(abc.ABC):
         :return: passed response
         :rtype: :obj:`Union[dict, list]`
 
-        :raises :obj:`DictionaryApiError` and inherited errors: if response has unsuccessful status code
+        :raise:
+            :DictionaryApiError: when unsuccessful status code got of API request
         """
 
         if status_code != HTTPStatus.OK:
@@ -122,49 +135,3 @@ class BaseDictionaryApiClient(abc.ABC):
         url = ApiUrl(word, language_code=language_code).get_url()
 
         return (url, language_code)
-
-    @abc.abstractmethod
-    def fetch_json(self, word: str, language_code: Optional[LanguageCodes] = None) -> Any:
-        """
-        Fetch API json response that loaded in Python object (``response.json()``).
-
-        :param word: searched word
-        :type word: :obj:`str`
-        :param language_code: language of the searched word
-        :type language_code: :obj:`Optional[LanguageCodes]`
-
-        :return: json response (supposed to be :obj:`list` or :obj:`dict`)
-        :rtype: :obj:`Any`
-
-        :raises :obj:`DictionaryApiError`` and inherited errors: raised
-            when unsuccessful status code got of API request
-        """
-
-    @abc.abstractmethod
-    def fetch_parser(self, word: str, language_code: Optional[LanguageCodes] = None) -> DictionaryApiParser:
-        """
-        Fetch dictionary API parser.
-
-        :param word: searched word
-        :type word: :obj:`str`
-        :param language_code: language of the searched word (`word`)
-        :type language_code: :obj:`Optional[LanguageCodes]`
-
-        :return: dictionary API parser
-        :rtype: :obj:`DictionaryApiParser`
-        """
-
-    @abc.abstractmethod
-    def fetch_word(self, word: str, language_code: Optional[LanguageCodes] = None) -> Word:
-        """
-        Fetch word (:obj:`Word`) - parsed object that has all word info.
-        Shortcut for the ``word`` property  of the :obj:`DictionaryApiParser` (``DictionaryApiParser.word``).
-
-        :param word: searched word
-        :type word: :obj:`str`
-        :param language_code: language of the searched word
-        :type language_code: :obj:`Optional[LanguageCodes]`
-
-        :return: word (parsed object)
-        :rtype: :obj:`Word`
-        """
