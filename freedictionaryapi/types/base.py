@@ -90,7 +90,7 @@ class ParsedObject(abc.ABC):
 
     def __init__(self, data: dict) -> None:
         """
-        Init base parsed object instance.
+        Init parsed object instance.
         Get data presented in python :obj:`dict` and set it in instance (with ``_data`` param).
 
         :param data: part of API json response

@@ -100,6 +100,7 @@ class DictionaryApiClient(BaseDictionaryApiClient):
         :return: client used for making HTTP requests
         :rtype: :obj:`httpx.Client`
         """
+
         return self._client
 
     def __enter__(self) -> 'DictionaryApiClient':

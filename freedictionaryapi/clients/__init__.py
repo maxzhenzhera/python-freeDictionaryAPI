@@ -20,6 +20,7 @@ but
 ``aiohttp`` used more often in async projects.
 """
 
+from .base_client_interface import BaseDictionaryApiClientInterface
 from .base_async_client import BaseAsyncDictionaryApiClient
 from .base_sync_client import BaseDictionaryApiClient
 from .async_client import AsyncDictionaryApiClient
@@ -28,7 +29,9 @@ from .sync_client import DictionaryApiClient
 
 __all__ = [
     # base abstract classes
-    # that might be inherited manually
+    # # that inherited in classes below
+    'BaseDictionaryApiClientInterface',
+    # # that might be inherited manually
     'BaseAsyncDictionaryApiClient',
     'BaseDictionaryApiClient',
     # prepared clients (sync and async)

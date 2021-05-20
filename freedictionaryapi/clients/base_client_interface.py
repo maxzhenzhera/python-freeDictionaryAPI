@@ -89,6 +89,7 @@ class BaseDictionaryApiClientInterface(abc.ABC):
         Analyze API response.
 
         Do this:
+
             - log about response status (successful | unsuccessful);
             - raise correspond error if response is not successful.
 

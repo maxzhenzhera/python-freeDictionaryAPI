@@ -15,7 +15,7 @@ class DictionaryApiErrorParser(BaseDictionaryApiParser):
     """
     Implements dictionary API error response parser.
 
-    Contains useful :method:`get_formatted_error_message` method
+    Contains useful :meth:`get_formatted_error_message` method
     that return pretty formatted error message.
     """
 

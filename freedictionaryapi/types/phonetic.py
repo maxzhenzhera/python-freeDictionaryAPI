@@ -14,6 +14,7 @@ class Phonetic(ParsedObject):
     """
     Implements the object of API json response
     that consists of phonetics data:
+
         * text - transcription;
         * audio - links on pronunciation (mp3 audio file).
     """

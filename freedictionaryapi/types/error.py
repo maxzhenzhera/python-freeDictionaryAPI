@@ -14,6 +14,7 @@ class Error(ParsedObject):
     """
     Implements the object of API json response
     that consists of error data:
+
         * title - short error title;
         * message - more detailed error message;
         * resolution - offer to solve problem.

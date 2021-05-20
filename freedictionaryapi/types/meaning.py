@@ -17,6 +17,7 @@ class Meaning(ParsedObject):
     """
     Implements the object of API json response
     that consists of meaning data:
+
         * partOfSpeech - part of speech;
         * definitions - list of definitions.
     """

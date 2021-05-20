@@ -1,7 +1,7 @@
 """
 Contains base abstract dictionary API parser.
 
-.. class:: BaseDictionaryApiParser(abc.ABC)
+
 """
 
 import abc

@@ -24,7 +24,7 @@ class DictionaryApiParser(BaseDictionaryApiParser):
     Parses from API json response in :obj:`ParsedObject` types.
 
     For getting data like from simple API response
-    but with fields hinting: get :obj:`Word`` object with :obj:`DictionaryApiParser.word` property
+    but with fields hinting: get :obj:`Word` object with :obj:`DictionaryApiParser.word` property
     and navigate through.
 
     For getting some sample data quickly
