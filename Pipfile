@@ -4,6 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+
+[dev-packages]
 aiohttp = "*"
 sphinx = "*"
 httpx = "*"
@@ -11,8 +13,6 @@ pytest = "*"
 pytest-asyncio = "*"
 sphinx-rtd-theme = "*"
 requests = "*"
-
-[dev-packages]
 
 [requires]
 python_version = "3.9"
