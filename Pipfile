@@ -8,8 +8,9 @@ aiohttp = "*"
 sphinx = "*"
 httpx = "*"
 pytest = "*"
-pytest-datadir = "*"
 pytest-asyncio = "*"
+sphinx-rtd-theme = "*"
+requests = "*"
 
 [dev-packages]
 
