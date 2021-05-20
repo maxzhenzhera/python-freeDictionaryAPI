@@ -1,2 +1,0 @@
-.. automodule:: dictionaryapi.urls
-   :members:

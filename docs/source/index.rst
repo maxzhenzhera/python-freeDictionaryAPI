@@ -7,9 +7,11 @@ Welcome to python-FreeDictionaryApi's documentation!
 ====================================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 5
    :caption: Contents:
 
+   user_guide/index
+   reference/index
 
 
 Indices and tables
@@ -18,4 +20,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
