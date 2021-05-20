@@ -27,14 +27,22 @@ class Meaning(ParsedObject):
 
     @property
     def part_of_speech(self) -> str:
-        """ Part of speech """
+        """
+        :return: part of speech
+        :rtype: :obj:`str`
+        """
+
         part_of_speech: str = self._data.get('partOfSpeech')
 
         return part_of_speech
 
     @property
     def definitions(self) -> list[Definition]:
-        """ List of definitions (parsed objects) """
+        """
+        :return: list of definitions (parsed objects)
+        :rtype: :obj:`list[Definition]`
+        """
+
         definitions_data: list[dict[str, Union[str, list]]] = self._data.get('definitions')
         definitions = [Definition(definition_data) for definition_data in definitions_data]
 

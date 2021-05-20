@@ -16,7 +16,7 @@ __all__ = ['Word']
 
 class Word(ParsedObject):
     """
-    Implements the biggest object of API json response,
+    Implements the biggest object of the API json response,
     so it contains all information about word
     that might be retrieved from API
     that structured in different parsed objects.
@@ -28,14 +28,22 @@ class Word(ParsedObject):
 
     @property
     def word(self) -> str:
-        """ Word (word name) """
+        """
+        :return: Word (word name)
+        :rtype: :obj:`str`
+        """
+
         word: str = self._data.get('word')
 
         return word
 
     @property
     def phonetics(self) -> list[Phonetic]:
-        """ List of phonetics """
+        """
+        :return: List of phonetics
+        :rtype: :obj:`list[Phonetic]`
+        """
+
         phonetics_data: list[dict[str, str]] = self._data.get('phonetics')
         phonetics = [Phonetic(phonetic_data) for phonetic_data in phonetics_data]
 
@@ -43,7 +51,11 @@ class Word(ParsedObject):
 
     @property
     def meanings(self) -> list[Meaning]:
-        """ List of meanings """
+        """
+        :return: List of meanings
+        :rtype: :obj:`list[Meaning]`
+        """
+
         meanings_data: list[dict[str, Union[str, list]]] = self._data.get('meanings')
         meanings = [Meaning(meaning_data) for meaning_data in meanings_data]
 

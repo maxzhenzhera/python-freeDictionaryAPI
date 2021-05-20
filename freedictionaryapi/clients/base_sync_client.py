@@ -41,7 +41,8 @@ class BaseDictionaryApiClient(BaseDictionaryApiClientInterface):
         :param default_language_code: default language of the searched words for the client
         :type default_language_code: :obj:`LanguageCodes`
 
-        :raises TypeError: if has been passed unsupported ``default_language_code``
+        :raise:
+            :TypeError: if has been passed unsupported ``default_language_code``
         """
 
         super().__init__(default_language_code)
@@ -92,7 +93,7 @@ class BaseDictionaryApiClient(BaseDictionaryApiClientInterface):
         :param language_code: language of the searched word
         :type language_code: :obj:`Optional[LanguageCodes]`
 
-        :return: json response (supposed to be ``list`` or ``dict``)
+        :return: json response (supposed to be :obj:`list` or :obj:`dict`)
         :rtype: :obj:`Any`
 
         :raise:

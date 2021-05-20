@@ -25,15 +25,33 @@ class Error(ParsedObject):
 
     @property
     def title(self) -> str:
-        """ Error title """
-        return self._data.get('title')
+        """
+        :return: error title
+        :rtype: :obj:`str`
+        """
+
+        title: str = self._data.get('title')
+
+        return title
 
     @property
     def message(self) -> str:
-        """ Error message """
-        return self._data.get('message')
+        """
+        :return: error message
+        :rtype: :obj:`str`
+        """
+
+        message = self._data.get('message')
+
+        return message
 
     @property
     def resolution(self) -> str:
-        """ Error resolution """
-        return self._data.get('resolution')
+        """
+        :return: error resolution
+        :rtype: :obj:`str`
+        """
+
+        resolution = self._data.get('resolution')
+
+        return resolution

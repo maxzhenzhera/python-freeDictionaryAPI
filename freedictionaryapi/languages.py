@@ -33,3 +33,4 @@ class LanguageCodes(Enum):
 
 
 DEFAULT_LANGUAGE_CODE: LanguageCodes = LanguageCodes.ENGLISH_US
+""" Default language that is used in API """

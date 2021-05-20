@@ -30,6 +30,8 @@ logger = logging.getLogger(__name__)
 class DictionaryApiClient(BaseDictionaryApiClient):
     """
     Implements sync dictionary API client.
+
+    Based on :obj:`httpx.Client`.
     """
 
     def __init__(self, default_language_code: LanguageCodes = DEFAULT_LANGUAGE_CODE, *,
@@ -94,7 +96,10 @@ class DictionaryApiClient(BaseDictionaryApiClient):
 
     @property
     def client(self) -> httpx.Client:
-        """ :obj:`httpx.Client` used for making HTTP requests """
+        """
+        :return: client used for making HTTP requests
+        :rtype: :obj:`httpx.Client`
+        """
         return self._client
 
     def __enter__(self) -> 'DictionaryApiClient':
@@ -104,7 +109,13 @@ class DictionaryApiClient(BaseDictionaryApiClient):
         self.close()
 
     def close(self) -> None:
-        """ Close dictionary API client """
+        """
+        Close dictionary API client
+
+        :return: None
+        :rtype: :obj:`None`
+        """
+
         self._client.close()
 
         logger.info('Client has been closed.')

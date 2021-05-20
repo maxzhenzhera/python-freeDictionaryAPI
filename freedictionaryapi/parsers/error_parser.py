@@ -4,7 +4,7 @@ Contains dictionary API error response parser.
 .. class:: DictionaryApiErrorParser(BaseDictionaryApiParser)
 """
 
-from .base import BaseDictionaryApiParser
+from .base_parser import BaseDictionaryApiParser
 from ..types import Error
 
 
@@ -49,31 +49,63 @@ class DictionaryApiErrorParser(BaseDictionaryApiParser):
 
     @property
     def data(self) -> dict:
-        """ API response data (:obj:`dict`) """
+        """
+        :return: API response data
+        :rtype: :obj:`dict`
+        """
+
         return self._data
 
     @property
     def status_code(self) -> int:
-        """ Error response status code """
+        """
+        :return: error response status code
+        :rtype: :obj:`int`
+        """
+
         return self._status_code
 
     @property
     def title(self) -> str:
-        """ Error title. Shortcut for :obj:`Error.title` """
+        """
+        Error title. Shortcut for :obj:`Error.title`
+
+        :return: error title
+        :rtype: :obj:`str`
+        """
+
         return self._error.title
 
     @property
     def message(self) -> str:
-        """ Error message. Shortcut for :obj:`Error.message` """
+        """
+        Error message. Shortcut for :obj:`Error.message`
+
+        :return: error message
+        :rtype: :obj:`str`
+        """
+
         return self._error.message
 
     @property
     def resolution(self) -> str:
-        """ Error resolution. Shortcut for `Error.resolution` """
+        """
+        Error resolution. Shortcut for `Error.resolution`
+
+        :return: error resolution
+        :rtype: :obj:`str`
+        """
+
         return self._error.resolution
 
     def get_formatted_error_message(self) -> str:
-        """ Get readable error message """
+        """
+        Get readable error message
+
+        :return: readable error message
+        :rtype: :obj:`str`
+        """
+
         error_message = '\n\t'.join(
             (
                 'API error occured during request processing.',

@@ -30,6 +30,8 @@ logger = logging.getLogger(__name__)
 class AsyncDictionaryApiClient(BaseAsyncDictionaryApiClient):
     """
     Implements asynchronous dictionary API client.
+
+    Based on :obj:`aiohttp.ClientSession`.
     """
 
     def __init__(self, default_language_code: LanguageCodes = DEFAULT_LANGUAGE_CODE, *,
@@ -43,9 +45,10 @@ class AsyncDictionaryApiClient(BaseAsyncDictionaryApiClient):
         :keyword session: ``aiohttp`` session to make HTTP requests asynchronously
         :type session: :obj:`Optional[aiohttp.ClientSession]`
 
-        :raises TypeError:
-            - if ``language_code`` is not an instance of :obj:`LanguageCodes`
-            - if ``session`` is not an instance of :obj:`aiohttp.ClientSession`
+        :raise:
+            :TypeError:
+                - if ``language_code`` is not an instance of :obj:`LanguageCodes`
+                - if ``session`` is not an instance of :obj:`aiohttp.ClientSession`
         """
 
         super().__init__(default_language_code)
@@ -69,7 +72,10 @@ class AsyncDictionaryApiClient(BaseAsyncDictionaryApiClient):
 
     @property
     def session(self) -> aiohttp.ClientSession:
-        """ :obj:`aiohttp.ClientSession` used for making HTTP requests """
+        """
+        :return: session used for making HTTP requests
+        :rtype: :obj:`aiohttp.ClientSession`
+        """
         return self._session
 
     async def __aenter__(self) -> 'AsyncDictionaryApiClient':
@@ -102,7 +108,13 @@ class AsyncDictionaryApiClient(BaseAsyncDictionaryApiClient):
         return data_of_the_api_response
 
     async def close(self) -> None:
-        """ Close dictionary API client """
+        """
+        Close dictionary API client
+
+        :return: None
+        :rtype: :obj:`None`
+        """
+
         await self._session.close()
 
         logger.info('Client has been closed.')

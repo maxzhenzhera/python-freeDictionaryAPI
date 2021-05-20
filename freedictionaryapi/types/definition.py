@@ -20,7 +20,7 @@ class Definition(ParsedObject):
         * synonyms - list of synonyms;
         * example - example sentence or phrase with word usage by current definition.
 
-    .. note:
+    .. note::
         ``synonyms`` and ``example`` properties are not always available.
         API response does not always provide these fields.
         So in return type it is annotated accordingly:
@@ -34,21 +34,33 @@ class Definition(ParsedObject):
 
     @property
     def definition(self) -> str:
-        """ Definition (meaning phrase or sentence) """
+        """
+        :return: definition (meaning phrase or sentence)
+        :rtype: :obj:`str`
+        """
+
         definition: str = self._data.get('definition')
 
         return definition
 
     @property
     def synonyms(self) -> Optional[list[str]]:
-        """ List of synonyms (might be omitted) """
+        """
+        :return: list of synonyms (might be omitted)
+        :rtype: :obj:`Optional[list[str]]`
+        """
+
         synonyms: Optional[list[str]] = self._data.get('synonyms')
 
         return synonyms
 
     @property
     def example(self) -> Optional[str]:
-        """ Example phrase or sentence of word usage (might be omitted) """
+        """
+        :return: example phrase or sentence of word usage (might be omitted)
+        :rtype: :obj:`Optional[str]`
+        """
+
         example: Optional[str] = self._data.get('example')
 
         return example

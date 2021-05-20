@@ -20,16 +20,15 @@ logger = logging.getLogger(__name__)
 
 class ApiUrl:
     """
-    Implements API url object.
-
-    .. attribute:: API_URL_PATTERN str: pattern of the API URL (format string with curly brackets filled params names)
+    Implements API URL object.
     """
 
     # pattern:
     # https://api.dictionaryapi.dev/api/v2/entries/<language_code>/<word>
 
     # Note: ``API_URL_PATTERN`` is a format string!
-    API_URL_PATTERN = 'https://api.dictionaryapi.dev/api/v2/entries/{language_code}/{word}'
+    API_URL_PATTERN: str = 'https://api.dictionaryapi.dev/api/v2/entries/{language_code}/{word}'
+    """ Pattern of the API URL """
 
     # example:
     # https://api.dictionaryapi.dev/api/v2/entries/en_US/hello
@@ -40,12 +39,12 @@ class ApiUrl:
 
         :param word: searched word
         :type word: :obj:`str`
-
         :keyword language_code: language of the searched word
         :type language_code: :obj:`LanguageCodes`
 
-        :raises ValueError: raised if ``word`` is empty
-        :raises TypeError: raised if ``language_code`` is not an instance of :obj:`LanguageCodes`
+        :raise:
+            :ValueError: raised if ``word`` is empty
+            :TypeError: raised if ``language_code`` is not an instance of :obj:`LanguageCodes`
         """
 
         self._word = str(word).strip()
@@ -83,16 +82,30 @@ class ApiUrl:
 
     @property
     def word(self) -> str:
-        """ Word """
+        """
+        :return: word
+        :rtype: :obj:`str`
+        """
+
         return self._word
 
     @property
     def language_code(self) -> LanguageCodes:
-        """ Language code """
+        """
+        :return: language code
+        :rtype: :obj:`LanguageCodes`
+        """
+
         return self._language_code
 
     def get_url(self) -> str:
-        """ Get prepared (with substituted word and language code) url that is ready for request """
+        """
+        Get prepared (with substituted word and language code) URL that is ready for request
+
+        :return: prepared URL
+        :rtype: :obj:`str`
+        """
+
         url = self.API_URL_PATTERN.format(
             word=self._word,
             language_code=self._language_code.value

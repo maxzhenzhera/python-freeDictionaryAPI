@@ -17,7 +17,8 @@ class ParsedObject(abc.ABC):
 
     Class gives convenient base for inheriting
     and creating more concrete types,
-    so inherited classes parse more detailed information.
+    so inherited classes parse more detailed information
+    and might be used in `composition` with the others.
 
     Must be inherited since it is abstract.
 
@@ -27,7 +28,10 @@ class ParsedObject(abc.ABC):
         - definitions.
 
     Considering that simple response might look like that (copied from https://dictionaryapi.dev/):
-    .. code-block:: json
+
+    .. code-block:: JSON
+        :linenos:
+
         [
             {
               "word": "hello",
@@ -94,6 +98,15 @@ class ParsedObject(abc.ABC):
         """
 
         self._data = data
+
+    @property
+    def data(self) -> dict:
+        """
+        :return: Data of the parsed object
+        :rtype: :obj:`dict`
+        """
+
+        return self._data
 
     def __eq__(self, other: 'ParsedObject') -> bool:
         if not isinstance(other, ParsedObject):

@@ -47,3 +47,4 @@ ERRORS: list[Type[DictionaryApiError]] = [
 ]
 
 API_ERRORS_MAPPER: dict[int, Type[DictionaryApiError]] = {error.code: error for error in ERRORS}
+""" Mapping of the pairs of response status code and correspond exception type """

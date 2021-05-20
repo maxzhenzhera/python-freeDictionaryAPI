@@ -57,7 +57,8 @@ class BaseDictionaryApiClientInterface(abc.ABC):
         :param default_language_code: default language of the searched words for the client
         :type default_language_code: :obj:`LanguageCodes`
 
-        :raises TypeError: if has been passed unsupported ``default_language_code``
+        :raise:
+            :TypeError: if has been passed unsupported ``default_language_code``
         """
 
         self._default_language_code = default_language_code
@@ -76,7 +77,10 @@ class BaseDictionaryApiClientInterface(abc.ABC):
 
     @property
     def default_language_code(self) -> LanguageCodes:
-        """ Default client language code """
+        """
+        :return: default client language code
+        :rtype: :obj:`LanguageCodes`
+        """
         return self._default_language_code
 
     @staticmethod

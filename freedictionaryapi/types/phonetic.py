@@ -24,14 +24,21 @@ class Phonetic(ParsedObject):
 
     @property
     def text(self) -> str:
-        """ Text of phonetic (transcription) """
+        """
+        :return: text of phonetic (transcription)
+        :rtype: :obj:`str`
+        """
         text: str = self._data.get('text')
 
         return text
 
     @property
     def audio(self) -> str:
-        """ Audio of phonetic (link on audio .mp3) """
+        """
+        :return: audio of phonetic (link on audio .mp3)
+        :rtype: :obj:`str`
+        """
+
         audio: str = self._data.get('audio')
 
         return audio
@@ -40,10 +47,22 @@ class Phonetic(ParsedObject):
 
     @property
     def transcription(self) -> str:
-        """ Alias of :obj:`text` property """
+        """
+        Alias of :obj:`Phonetic.text` property
+
+        :return: transcription
+        :rtype: :obj:`str`
+        """
+
         return self.text
 
     @property
     def link_on_audio_with_pronunciation(self) -> str:
-        """ Alias of :obj:`audio` property """
+        """
+        Alias of :obj:`Phonetic.audio` property
+
+        :return: link on audio (.mp3) with pronunciation
+        :rtype: :obj:`str`
+        """
+
         return self.audio

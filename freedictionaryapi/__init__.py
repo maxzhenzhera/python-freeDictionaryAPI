@@ -23,6 +23,7 @@ from .parsers import (
 )
 from .urls import ApiUrl
 
+
 __all__ = [
     # packages
     'clients',
@@ -34,8 +35,8 @@ __all__ = [
     'urls',
     # classes
     # # clients
-    'DictionaryApiClient',
     'AsyncDictionaryApiClient',
+    'DictionaryApiClient',
     # # parsers
     'DictionaryApiParser',
     'DictionaryApiErrorParser',

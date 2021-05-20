@@ -29,7 +29,11 @@ class BaseDictionaryApiParser(abc.ABC):
 
     @property
     def response(self) -> Any:
-        """ API json response loaded in python object """
+        """
+        :return: API json response loaded in python object
+        :rtype: :obj:`Any`
+        """
+
         return self._response
 
     @property
@@ -41,4 +45,7 @@ class BaseDictionaryApiParser(abc.ABC):
 
         To make sure that in :obj:`ParsedObject` instances
         we use :obj:`dict` here is this property.
+
+        :return: response data for parsing
+        :rtype: :obj:`dict`
         """
