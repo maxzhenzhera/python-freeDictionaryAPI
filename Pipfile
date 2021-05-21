@@ -4,6 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+python-freedictionaryapi = {editable = true, path = "."}
 
 [dev-packages]
 aiohttp = "*"
@@ -13,6 +14,7 @@ pytest = "*"
 pytest-asyncio = "*"
 sphinx-rtd-theme = "*"
 requests = "*"
+tox = "*"
 
 [requires]
 python_version = "3.9"
