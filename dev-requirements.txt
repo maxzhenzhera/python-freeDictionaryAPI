@@ -1,0 +1,12 @@
+-r requirements/base-requirements.txt
+-r requirements/async-client-requirements.txt
+-r requirements/sync-client-requirements.txt
+-r requirements/examples-requirements.txt
+
+# tests
+pytest>=6.2.4
+pytest-asyncio>=0.15.1
+tox>=3.23.1
+
+# docs
+Sphinx>=4.0.1
