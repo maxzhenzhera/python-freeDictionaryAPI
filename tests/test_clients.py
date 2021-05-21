@@ -55,6 +55,35 @@ class TestAsyncDictionaryApiClient:
             _ = await client.fetch_parser(nonexistent_word)
             # _ = client.fetch_word()
 
+    @pytest.mark.asyncio
+    async def test_client_fetch_parser(self, client: AsyncDictionaryApiClient):
+        existent_word = 'hello'
+        status_that_parser_has_been_fetched_without_error_occurring = True
+
+        _ = await client.fetch_parser(existent_word)
+
+        assert status_that_parser_has_been_fetched_without_error_occurring
+
+    @pytest.mark.asyncio
+    async def test_client_fetch_word(self, client: AsyncDictionaryApiClient):
+        existent_word = 'hello'
+        status_that_word_has_been_fetched_without_error_occurring = True
+
+        _ = await client.fetch_word(existent_word)
+
+        assert status_that_word_has_been_fetched_without_error_occurring
+
+    @pytest.mark.asyncio
+    async def test_client_fetched_parser_word(self, client: AsyncDictionaryApiClient):
+        existent_word = 'hello'
+
+        parser = await client.fetch_parser(existent_word)
+        parser_word = parser.word
+
+        word = await client.fetch_word(existent_word)
+
+        assert parser_word == word
+
 
 class TestDictionaryApiClient:
     """
@@ -95,3 +124,29 @@ class TestDictionaryApiClient:
             # _ = client.fetch_json()
             _ = client.fetch_parser(nonexistent_word)
             # _ = client.fetch_word()
+
+    def test_client_fetch_parser(self, client: DictionaryApiClient):
+        existent_word = 'hello'
+        status_that_parser_has_been_fetched_without_error_occurring = True
+
+        _ = client.fetch_parser(existent_word)
+
+        assert status_that_parser_has_been_fetched_without_error_occurring
+
+    def test_client_fetch_word(self, client: DictionaryApiClient):
+        existent_word = 'hello'
+        status_that_word_has_been_fetched_without_error_occurring = True
+
+        _ = client.fetch_word(existent_word)
+
+        assert status_that_word_has_been_fetched_without_error_occurring
+
+    def test_client_fetched_parser_word(self, client: DictionaryApiClient):
+        existent_word = 'hello'
+
+        parser = client.fetch_parser(existent_word)
+        parser_word = parser.word
+
+        word = client.fetch_word(existent_word)
+
+        assert parser_word == word
