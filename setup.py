@@ -53,7 +53,7 @@ def get_long_description() -> str:
 
 
 setup(
-    name='python-FreeDictionaryApi',
+    name='python-freeDictionaryAPI',
     version=get_version(),
     packages=find_packages(exclude=('tests', 'examples', 'docs', 'Pipfile', 'Pipfile.lock')),
     url='https://github.com/Max-Zhenzhera/python-freeDictionaryAPI',
