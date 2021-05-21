@@ -1,3 +1,8 @@
-Now in dev...
+Welcome to python-FreeDictionaryApi!
+====================================
 
-Soon release!
+.. note::
+
+    It is in development now!
+
+    Release soon!
