@@ -14,7 +14,7 @@ import freedictionaryapi
 
 # -- Project information -----------------------------------------------------
 
-project = 'python-FreeDictionaryApi'
+project = 'python-freeDictionaryAPI'
 copyright = '2021, Max Zhenzhera'
 author = 'Max Zhenzhera'
 
@@ -34,11 +34,9 @@ release = freedictionaryapi.__version__
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autodoc',  # Core library for html generation from docstrings
-    'sphinx.ext.viewcode',
-    'sphinx.ext.autosummary',  # Create neat summary tables
+    'sphinx.ext.autodoc',   # Core library for html generation from docstrings
+    'sphinx.ext.viewcode',  # Add links on source code
 ]
-autosummary_generate = True  # Turn on sphinx.ext.autosummary
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
