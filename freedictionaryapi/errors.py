@@ -12,7 +12,7 @@ Errors hierarchy:
 .. const:: API_ERRORS_MAPPER
 """
 
-from typing import Type
+import typing
 
 
 __all__ = [
@@ -42,9 +42,9 @@ class DictionaryApiNotFoundError(DictionaryApiError):
     code = 404
 
 
-ERRORS: list[Type[DictionaryApiError]] = [
+ERRORS: typing.List[typing.Type[DictionaryApiError]] = [
     DictionaryApiNotFoundError,
 ]
 
-API_ERRORS_MAPPER: dict[int, Type[DictionaryApiError]] = {error.code: error for error in ERRORS}
+API_ERRORS_MAPPER: typing.Dict[int, typing.Type[DictionaryApiError]] = {error.code: error for error in ERRORS}
 """ Mapping of the pairs of response status code and correspond exception type """

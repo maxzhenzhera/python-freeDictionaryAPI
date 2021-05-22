@@ -4,7 +4,7 @@ Contains dictionary API response parser.
 .. class:: DictionaryApiParser
 """
 
-from typing import Union
+import typing
 
 from .base_parser import BaseDictionaryApiParser
 from ..types import (
@@ -31,7 +31,7 @@ class DictionaryApiParser(BaseDictionaryApiParser):
     it is possible to use some of prepared methods and properties.
     """
 
-    def __init__(self, response: Union[dict, list]) -> None:
+    def __init__(self, response: typing.Union[dict, list]) -> None:
         """
         Init dictionary API parser response intsance.
         Parse API response.
@@ -89,7 +89,7 @@ class DictionaryApiParser(BaseDictionaryApiParser):
         return self._word
 
     @property
-    def phonetics(self) -> list[Phonetic]:
+    def phonetics(self) -> typing.List[Phonetic]:
         """
         Phonetics data. Shortcut for :obj:`Word.phonetics`
 
@@ -100,7 +100,7 @@ class DictionaryApiParser(BaseDictionaryApiParser):
         return self._word.phonetics
 
     @property
-    def meanings(self) -> list[Meaning]:
+    def meanings(self) -> typing.List[Meaning]:
         """
         Meanings data. Shortcut for :obj:`Word.meanings`
 
@@ -110,7 +110,7 @@ class DictionaryApiParser(BaseDictionaryApiParser):
 
         return self._word.meanings
 
-    def _get_all_definitions_as_parsed_objects(self) -> list[Definition]:
+    def _get_all_definitions_as_parsed_objects(self) -> typing.List[Definition]:
         """
         Get list of all definitions (as :obj:`ParsedObject`)
 
@@ -141,7 +141,7 @@ class DictionaryApiParser(BaseDictionaryApiParser):
 
         return transcription
 
-    def get_all_transcriptions(self) -> list[str]:
+    def get_all_transcriptions(self) -> typing.List[str]:
         """
         Get all transcriptions that fetched in response
 
@@ -169,7 +169,7 @@ class DictionaryApiParser(BaseDictionaryApiParser):
 
     # Meaning section --------------------------------------------------------------------------------------------------
 
-    def get_all_parts_of_speech(self) -> list[str]:
+    def get_all_parts_of_speech(self) -> typing.List[str]:
         """
         Get all parts of speech
 
@@ -181,7 +181,7 @@ class DictionaryApiParser(BaseDictionaryApiParser):
 
         return parts_of_speech
 
-    def get_all_definitions(self) -> list[str]:
+    def get_all_definitions(self) -> typing.List[str]:
         """
         Get all definitions (phrases that telling meaning of the word)
 
@@ -193,7 +193,7 @@ class DictionaryApiParser(BaseDictionaryApiParser):
 
         return definitions
 
-    def get_all_examples(self) -> list[str]:
+    def get_all_examples(self) -> typing.List[str]:
         """
         Get all examples of word usage
 
@@ -205,7 +205,7 @@ class DictionaryApiParser(BaseDictionaryApiParser):
 
         return examples
 
-    def get_all_synonyms(self) -> list[str]:
+    def get_all_synonyms(self) -> typing.List[str]:
         """
         Get all synonyms
 

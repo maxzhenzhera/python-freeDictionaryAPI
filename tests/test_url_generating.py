@@ -4,6 +4,8 @@ Contains tests for API url generation.
 .. class:: TestApiUrlGeneration
 """
 
+import typing
+
 import pytest
 
 from freedictionaryapi.languages import LanguageCodes
@@ -22,7 +24,7 @@ class TestApiUrlGeneration:
     # fixtures ---------------------------------------------------------------------------------------------------------
 
     @pytest.fixture(name='data_list', scope='class')
-    def fixture_data_list(self) -> list[dict]:
+    def fixture_data_list(self) -> typing.List[dict]:
         """ Get ``list`` of ``dict`` that contains arguments for ``ApiUrl`` instances """
         data_list = [
             {
@@ -45,7 +47,7 @@ class TestApiUrlGeneration:
         with pytest.raises(ValueError) as raised_error:
             _ = ApiUrl(empty_word)
 
-    def test_generated_url_with_some_data(self, data_list: list[dict]):
+    def test_generated_url_with_some_data(self, data_list: typing.List[dict]):
         for data in data_list:
             word = data['word']
             language = data['language_code']

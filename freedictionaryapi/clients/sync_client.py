@@ -7,10 +7,7 @@ FOR WORK REQUIRE ``httpx`` PACKAGE TO BE INSTALLED.
 """
 
 import logging
-from typing import (
-    Any,
-    Optional
-)
+import typing
 
 import httpx
 
@@ -35,7 +32,7 @@ class DictionaryApiClient(BaseDictionaryApiClient):
     """
 
     def __init__(self, default_language_code: LanguageCodes = DEFAULT_LANGUAGE_CODE, *,
-                 client: Optional[httpx.Client] = None
+                 client: typing.Optional[httpx.Client] = None
                  ) -> None:
         """
         Init sync dictionary API client instance.
@@ -70,7 +67,7 @@ class DictionaryApiClient(BaseDictionaryApiClient):
 
         logger.info('Client has been init-ed.')
 
-    def fetch_api_response(self, url: str) -> tuple[int, Any]:
+    def fetch_api_response(self, url: str) -> typing.Tuple[int, typing.Any]:
         """
         Fetch data of the API response.
 

@@ -7,10 +7,7 @@ Contains base dictionary API client interface.
 import abc
 import logging
 from http import HTTPStatus
-from typing import (
-    Optional,
-    Union
-)
+import typing
 
 from ..errors import (
     API_ERRORS_MAPPER,
@@ -84,7 +81,7 @@ class BaseDictionaryApiClientInterface(abc.ABC):
         return self._default_language_code
 
     @staticmethod
-    def _analyze_response(url: str, status_code: int, response: Union[dict, list]) -> Union[dict, list]:
+    def _analyze_response(url: str, status_code: int, response: typing.Union[dict, list]) -> typing.Union[dict, list]:
         """
         Analyze API response.
 
@@ -123,7 +120,8 @@ class BaseDictionaryApiClientInterface(abc.ABC):
 
         return response
 
-    def _generate_url(self, word: str, language_code: Optional[LanguageCodes] = None) -> tuple[str, LanguageCodes]:
+    def _generate_url(self, word: str, language_code: typing.Optional[LanguageCodes] = None
+                      ) -> typing.Tuple[str, LanguageCodes]:
         """
         Generate URL for API request.
 

@@ -4,7 +4,7 @@ Contains definition type.
 .. class Definition(ParsedObject)
 """
 
-from typing import Optional
+import typing
 
 from .base import ParsedObject
 
@@ -46,23 +46,23 @@ class Definition(ParsedObject):
         return definition
 
     @property
-    def synonyms(self) -> Optional[list[str]]:
+    def synonyms(self) -> typing.Optional[typing.List[str]]:
         """
         :return: list of synonyms (might be omitted)
         :rtype: :obj:`Optional[list[str]]`
         """
 
-        synonyms: Optional[list[str]] = self._data.get('synonyms')
+        synonyms: typing.Optional[typing.List[str]] = self._data.get('synonyms')
 
         return synonyms
 
     @property
-    def example(self) -> Optional[str]:
+    def example(self) -> typing.Optional[str]:
         """
         :return: example phrase or sentence of word usage (might be omitted)
         :rtype: :obj:`Optional[str]`
         """
 
-        example: Optional[str] = self._data.get('example')
+        example: typing.Optional[str] = self._data.get('example')
 
         return example

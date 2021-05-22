@@ -4,8 +4,7 @@ Contains word type (the biggest scale).
 .. class Word(ParsedObject)
 """
 
-from typing import Union
-
+import typing
 from .base import ParsedObject
 from .meaning import Meaning
 from .phonetic import Phonetic
@@ -38,25 +37,25 @@ class Word(ParsedObject):
         return word
 
     @property
-    def phonetics(self) -> list[Phonetic]:
+    def phonetics(self) -> typing.List[Phonetic]:
         """
         :return: List of phonetics
         :rtype: :obj:`list[Phonetic]`
         """
 
-        phonetics_data: list[dict[str, str]] = self._data.get('phonetics')
+        phonetics_data: typing.List[dict] = self._data.get('phonetics')
         phonetics = [Phonetic(phonetic_data) for phonetic_data in phonetics_data]
 
         return phonetics
 
     @property
-    def meanings(self) -> list[Meaning]:
+    def meanings(self) -> typing.List[Meaning]:
         """
         :return: List of meanings
         :rtype: :obj:`list[Meaning]`
         """
 
-        meanings_data: list[dict[str, Union[str, list]]] = self._data.get('meanings')
+        meanings_data: typing.List[dict] = self._data.get('meanings')
         meanings = [Meaning(meaning_data) for meaning_data in meanings_data]
 
         return meanings

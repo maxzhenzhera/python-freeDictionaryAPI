@@ -6,10 +6,7 @@ Contains base dictionary API client.
 
 import abc
 import logging
-from typing import (
-    Any,
-    Optional
-)
+import typing
 
 from .base_client_interface import BaseDictionaryApiClientInterface
 from ..languages import LanguageCodes
@@ -32,7 +29,7 @@ class BaseDictionaryApiClient(BaseDictionaryApiClientInterface):
     """
 
     @abc.abstractmethod
-    def fetch_api_response(self, url: str) -> tuple[int, Any]:
+    def fetch_api_response(self, url: str) -> typing.Tuple[int, typing.Any]:
         """
         Fetch data of the API response.
 
@@ -102,7 +99,7 @@ class BaseDictionaryApiClient(BaseDictionaryApiClientInterface):
         :rtype: :obj:`tuple[int, Any]`
         """
 
-    def fetch_json(self, word: str, language_code: Optional[LanguageCodes] = None) -> Any:
+    def fetch_json(self, word: str, language_code: typing.Optional[LanguageCodes] = None) -> typing.Any:
         """
         Fetch API json response that loaded in Python object (``response.json()``).
 
@@ -129,7 +126,7 @@ class BaseDictionaryApiClient(BaseDictionaryApiClientInterface):
 
         return analyzed_response
 
-    def fetch_parser(self, word: str, language_code: Optional[LanguageCodes] = None) -> DictionaryApiParser:
+    def fetch_parser(self, word: str, language_code: typing.Optional[LanguageCodes] = None) -> DictionaryApiParser:
         """
         Fetch dictionary API parser.
 
@@ -147,7 +144,7 @@ class BaseDictionaryApiClient(BaseDictionaryApiClientInterface):
 
         return parser
 
-    def fetch_word(self, word: str, language_code: Optional[LanguageCodes] = None) -> Word:
+    def fetch_word(self, word: str, language_code: typing.Optional[LanguageCodes] = None) -> Word:
         """
         Fetch word (:obj:`Word`) - parsed object that has all word info.
         Shortcut for the :obj:`DictionaryApiParser.word`.

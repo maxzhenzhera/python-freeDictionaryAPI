@@ -7,10 +7,7 @@ FOR WORK REQUIRE ``aiohttp`` PACKAGE TO BE INSTALLED.
 """
 
 import logging
-from typing import (
-    Any,
-    Optional
-)
+import typing
 
 import aiohttp
 
@@ -35,7 +32,7 @@ class AsyncDictionaryApiClient(BaseAsyncDictionaryApiClient):
     """
 
     def __init__(self, default_language_code: LanguageCodes = DEFAULT_LANGUAGE_CODE, *,
-                 session: Optional[aiohttp.ClientSession] = None
+                 session: typing.Optional[aiohttp.ClientSession] = None
                  ) -> None:
         """
         Init async dictionary API client instance.
@@ -85,7 +82,7 @@ class AsyncDictionaryApiClient(BaseAsyncDictionaryApiClient):
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         await self.close()
 
-    async def fetch_api_response(self, url: str) -> tuple[int, Any]:
+    async def fetch_api_response(self, url: str) -> typing.Tuple[int, typing.Any]:
         """
         Fetch data of the API response.
 

@@ -4,7 +4,7 @@ Contains meaning type.
 .. class Meaning(ParsedObject)
 """
 
-from typing import Union
+import typing
 
 from .base import ParsedObject
 from .definition import Definition
@@ -38,13 +38,13 @@ class Meaning(ParsedObject):
         return part_of_speech
 
     @property
-    def definitions(self) -> list[Definition]:
+    def definitions(self) -> typing.List[Definition]:
         """
         :return: list of definitions (parsed objects)
         :rtype: :obj:`list[Definition]`
         """
 
-        definitions_data: list[dict[str, Union[str, list]]] = self._data.get('definitions')
+        definitions_data: typing.List[dict] = self._data.get('definitions')
         definitions = [Definition(definition_data) for definition_data in definitions_data]
 
         return definitions

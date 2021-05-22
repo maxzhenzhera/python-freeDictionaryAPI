@@ -6,6 +6,7 @@ Contains tests for parsing.
 """
 
 import json
+import typing
 
 import pytest
 
@@ -72,21 +73,22 @@ class TestResponseParsing:
         return word
 
     @pytest.fixture(name='phonetics_from_word', scope='class')
-    def fixture_phonetics_from_word(self, word_from_data: Word) -> list[Phonetic]:
+    def fixture_phonetics_from_word(self, word_from_data: Word) -> typing.List[Phonetic]:
         """ List of phonetics from word """
         phonetics = word_from_data.phonetics
 
         return phonetics
 
     @pytest.fixture(name='meanings_from_word', scope='class')
-    def fixture_meanings_from_word(self, word_from_data: Word) -> list[Meaning]:
+    def fixture_meanings_from_word(self, word_from_data: Word) -> typing.List[Meaning]:
         """ List of meanings from word  """
         meanings = word_from_data.meanings
 
         return meanings
 
     @pytest.fixture(name='definitions_from_meanings', scope='class')
-    def fixture_definitions_from_meanings(self, meanings_from_word: list[Meaning]) -> list[list[Definition]]:
+    def fixture_definitions_from_meanings(self, meanings_from_word: typing.List[Meaning]
+                                          ) -> typing.List[typing.List[Definition]]:
         """ List of definition list from word meanings """
         definitions = [meaning.definitions for meaning in meanings_from_word]
 
@@ -201,13 +203,13 @@ class TestResponseParsing:
 
     # # types.Phonetic -------------------------------------------------------------------------------------------------
 
-    def test_phonetic_type_text(self, data: dict, phonetics_from_word: list[Phonetic]):
+    def test_phonetic_type_text(self, data: dict, phonetics_from_word: typing.List[Phonetic]):
         texts_from_data = [phonetic_data['text'] for phonetic_data in data['phonetics']]
         texts_from_phonetic_type = [phonetic.text for phonetic in phonetics_from_word]
 
         assert texts_from_phonetic_type == texts_from_data
 
-    def test_phonetic_type_audio(self, data: dict, phonetics_from_word: list[Phonetic]):
+    def test_phonetic_type_audio(self, data: dict, phonetics_from_word: typing.List[Phonetic]):
         audios_from_data = [phonetic_data['audio'] for phonetic_data in data['phonetics']]
         audios_from_phonetic_type = [phonetic.audio for phonetic in phonetics_from_word]
 
@@ -215,13 +217,13 @@ class TestResponseParsing:
 
     # # types.Meaning  -------------------------------------------------------------------------------------------------
 
-    def test_meaning_type_part_of_speech(self, data: dict, meanings_from_word: list[Meaning]):
+    def test_meaning_type_part_of_speech(self, data: dict, meanings_from_word: typing.List[Meaning]):
         parts_of_speech_from_data = [meaning_data['partOfSpeech'] for meaning_data in data['meanings']]
         parts_of_speech_from_meaning_type = [meaning.part_of_speech for meaning in meanings_from_word]
 
         assert parts_of_speech_from_meaning_type == parts_of_speech_from_data
 
-    def test_meaning_type_definitions(self, data: dict, meanings_from_word: list[Meaning]):
+    def test_meaning_type_definitions(self, data: dict, meanings_from_word: typing.List[Meaning]):
         definitions_from_data = [
             [
                 Definition(definition_data) for definition_data in meaning_data['definitions']
@@ -234,7 +236,9 @@ class TestResponseParsing:
 
     # # types.Definition  ----------------------------------------------------------------------------------------------
 
-    def test_definition_type_definition(self, data: dict, definitions_from_meanings: list[list[Definition]]):
+    def test_definition_type_definition(self, data: dict,
+                                        definitions_from_meanings: typing.List[typing.List[Definition]]
+                                        ):
         definitions_from_data = [
             definition['definition']
             for meaning in data['meanings']
@@ -248,7 +252,8 @@ class TestResponseParsing:
 
         assert definitions_from_definition_type == definitions_from_data
 
-    def test_definition_type_synonyms(self, data: dict, definitions_from_meanings: list[list[Definition]]):
+    def test_definition_type_synonyms(self, data: dict, definitions_from_meanings: typing.List[typing.List[Definition]]
+                                      ):
         synonyms_from_data = [
             definition.get('synonyms')
             for meaning in data['meanings']
@@ -262,7 +267,7 @@ class TestResponseParsing:
 
         assert synonyms_from_definition_type == synonyms_from_data
 
-    def test_definition_type_example(self, data: dict, definitions_from_meanings: list[list[Definition]]):
+    def test_definition_type_example(self, data: dict, definitions_from_meanings: typing.List[typing.List[Definition]]):
         examples_from_data = [
             definition.get('example')
             for meaning in data['meanings']
@@ -284,7 +289,7 @@ class TestResponseParsing:
 
         assert fact == expected
 
-    def test_hello_phonetics_type_text(self, phonetics_from_word: list[Phonetic]):
+    def test_hello_phonetics_type_text(self, phonetics_from_word: typing.List[Phonetic]):
         expected = [phonetic.text for phonetic in phonetics_from_word]
         fact = [
             '/həˈloʊ/',
@@ -293,7 +298,7 @@ class TestResponseParsing:
 
         assert fact == expected
 
-    def test_hello_phonetics_type_audio(self, phonetics_from_word: list[Phonetic]):
+    def test_hello_phonetics_type_audio(self, phonetics_from_word: typing.List[Phonetic]):
         expected = [phonetic.audio for phonetic in phonetics_from_word]
         fact = [
             'https://lex-audio.useremarkable.com/mp3/hello_us_1_rr.mp3',
@@ -302,7 +307,7 @@ class TestResponseParsing:
 
         assert fact == expected
 
-    def test_hello_meanings_type_part_of_speech(self, meanings_from_word: list[Meaning]):
+    def test_hello_meanings_type_part_of_speech(self, meanings_from_word: typing.List[Meaning]):
         expected = [meaning.part_of_speech for meaning in meanings_from_word]
         fact = [
             'exclamation',
@@ -312,7 +317,7 @@ class TestResponseParsing:
 
         assert fact == expected
 
-    def test_hello_definition_type_definition(self, definitions_from_meanings: list[list[Definition]]):
+    def test_hello_definition_type_definition(self, definitions_from_meanings: typing.List[typing.List[Definition]]):
         expected = [
             definition.definition
             for meanings_definition in definitions_from_meanings
@@ -326,7 +331,7 @@ class TestResponseParsing:
 
         assert fact == expected
 
-    def test_hello_definition_type_example(self, definitions_from_meanings: list[list[Definition]]):
+    def test_hello_definition_type_example(self, definitions_from_meanings: typing.List[typing.List[Definition]]):
         expected = [
             definition.example
             for meanings_definition in definitions_from_meanings
@@ -340,7 +345,7 @@ class TestResponseParsing:
 
         assert fact == expected
 
-    def test_hello_definition_type_synonyms(self, definitions_from_meanings: list[list[Definition]]):
+    def test_hello_definition_type_synonyms(self, definitions_from_meanings: typing.List[typing.List[Definition]]):
         expected = [
             definition.synonyms
             for meanings_definition in definitions_from_meanings

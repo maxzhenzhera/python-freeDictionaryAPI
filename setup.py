@@ -12,7 +12,7 @@ PACKAGE_PATH = BASE_DIR / 'freedictionaryapi'
 PACKAGE_INIT_PATH = PACKAGE_PATH / '__init__.py'
 
 
-MINIMAL_PYTHON_VERSION = (3, 9)
+MINIMAL_PYTHON_VERSION = (3, 6)
 if sys.version_info < MINIMAL_PYTHON_VERSION:
     raise RuntimeError(
         'freedictionaryapi works only with Python {}+'.format(
@@ -67,6 +67,9 @@ setup(
         'Operating System :: OS Independent',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
     ],
     install_requires=[

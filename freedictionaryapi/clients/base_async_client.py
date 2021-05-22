@@ -6,10 +6,7 @@ Contains base dictionary API client.
 
 import abc
 import logging
-from typing import (
-    Any,
-    Optional
-)
+import typing
 
 from .base_client_interface import BaseDictionaryApiClientInterface
 from ..languages import LanguageCodes
@@ -32,7 +29,7 @@ class BaseAsyncDictionaryApiClient(BaseDictionaryApiClientInterface):
     """
 
     @abc.abstractmethod
-    async def fetch_api_response(self, url: str) -> tuple[int, Any]:
+    async def fetch_api_response(self, url: str) -> typing.Tuple[int, typing.Any]:
         """
         Fetch data of the API response.
 
@@ -101,7 +98,7 @@ class BaseAsyncDictionaryApiClient(BaseDictionaryApiClientInterface):
         :rtype: :obj:`tuple[int, Any]`
         """
 
-    async def fetch_json(self, word: str, language_code: Optional[LanguageCodes] = None) -> Any:
+    async def fetch_json(self, word: str, language_code: typing.Optional[LanguageCodes] = None) -> typing.Any:
         """
         Fetch API json response that loaded in Python object (``await response.json()``).
 
@@ -128,7 +125,8 @@ class BaseAsyncDictionaryApiClient(BaseDictionaryApiClientInterface):
 
         return analyzed_response
 
-    async def fetch_parser(self, word: str, language_code: Optional[LanguageCodes] = None) -> DictionaryApiParser:
+    async def fetch_parser(self, word: str, language_code: typing.Optional[LanguageCodes] = None
+                           ) -> DictionaryApiParser:
         """
         Fetch dictionary API parser.
 
@@ -146,7 +144,7 @@ class BaseAsyncDictionaryApiClient(BaseDictionaryApiClientInterface):
 
         return parser
 
-    async def fetch_word(self, word: str, language_code: Optional[LanguageCodes] = None) -> Word:
+    async def fetch_word(self, word: str, language_code: typing.Optional[LanguageCodes] = None) -> Word:
         """
         Fetch word - parsed object that has all word info.
         Shortcut for the :obj:`DictionaryApiParser.word`.
