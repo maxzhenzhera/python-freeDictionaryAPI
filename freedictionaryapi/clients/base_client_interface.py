@@ -130,7 +130,10 @@ class BaseDictionaryApiClientInterface(abc.ABC):
         :param language_code: language of the searched word
         :type language_code: :obj:`Optional[LanguageCodes]`
 
-        :return: tuple of generated URL and used language code
+        :return: tuple of:
+
+            - generated URL;
+            - used language code.
         :rtype: :obj:`Union[str, LanguageCodes]`
         """
 

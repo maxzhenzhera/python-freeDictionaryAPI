@@ -96,6 +96,7 @@ class BaseDictionaryApiClient(BaseDictionaryApiClientInterface):
         :type url: :obj:`str`
 
         :return: tuple of:
+
             - response status code;
             - python object loaded from API response with JSON decoding.
         :rtype: :obj:`tuple[int, Any]`
