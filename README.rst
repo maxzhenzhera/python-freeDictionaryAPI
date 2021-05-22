@@ -5,10 +5,6 @@ Welcome to python-freeDictionaryAPI!
     :target: https://pypi.org/project/python-freeDictionaryAPI/
     :alt: PyPI
 
-.. image:: https://img.shields.io/pypi/status/python-freeDictionaryAPI?style=flat-square
-    :target: https://pypi.org/project/python-freeDictionaryAPI/
-    :alt: PyPI - Status
-
 .. image:: https://img.shields.io/pypi/pyversions/python-freeDictionaryAPI?style=flat-square
     :target: https://pypi.org/project/python-freeDictionaryAPI/
     :alt: PyPI - Python Version
