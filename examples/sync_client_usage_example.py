@@ -1,13 +1,18 @@
 """
-httpx package is required.
-Since synchronous client is powered by httpx.Client.
+`httpx` package is required.
+Since synchronous client is powered by `httpx.Client`.
 """
 
 import logging
 
-from freedictionaryapi import DictionaryApiClient
-from freedictionaryapi import LanguageCodes
+# module is requiring external dependency:
+# so it can not be set in __init__ files
+# for easier importing
+from freedictionaryapi.clients.sync_client import DictionaryApiClient
 from freedictionaryapi.errors import DictionaryApiError
+# or `from freedictionaryapi import DictionaryApiError`
+from freedictionaryapi.languages import LanguageCodes
+# or `from freedictionaryapi import LanguageCodes`
 
 
 def main():

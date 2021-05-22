@@ -16,13 +16,15 @@ from typing import (
 
 import httpx
 
+
+from freedictionaryapi.clients.base_async_client import BaseAsyncDictionaryApiClient
+# or `from freedictionaryapi.clients import BaseAsyncDictionaryApiClient`
 from freedictionaryapi.errors import DictionaryApiError
-from freedictionaryapi.clients import BaseAsyncDictionaryApiClient
+# or `from freedictionaryapi impot DictionaryApiError`
 from freedictionaryapi.languages import (
     LanguageCodes,
     DEFAULT_LANGUAGE_CODE
 )
-
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)

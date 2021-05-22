@@ -3,6 +3,10 @@ Detailed overlook of parser and types references.
 """
 
 import freedictionaryapi
+# module is requiring external dependency:
+# so it can not be set in __init__ files
+# for easier importing
+from freedictionaryapi.clients.sync_client import DictionaryApiClient
 
 
 def main():
@@ -12,7 +16,7 @@ def main():
     # # and eventually of implemented types
 
     # firstly, fetch one parser to look on it
-    with freedictionaryapi.DictionaryApiClient() as client:
+    with DictionaryApiClient() as client:
         parser: freedictionaryapi.parsers.DictionaryApiParser = client.fetch_parser('hello')
 
     # simple navigating throw the API response

@@ -1,14 +1,19 @@
 """
-aiohttp package is required.
-Since asynchronous client is powered by aiohttp.ClientSession.
+`aiohttp` package is required.
+Since asynchronous client is powered by `aiohttp.ClientSession`.
 """
 
 import asyncio
 import logging
 
-from freedictionaryapi import AsyncDictionaryApiClient
-from freedictionaryapi import LanguageCodes
+# module is requiring external dependency:
+# so it can not be set in __init__ files
+# for easier importing
+from freedictionaryapi.clients.async_client import AsyncDictionaryApiClient
+# or `from freedictionaryapi import DictionaryApiError`
 from freedictionaryapi.errors import DictionaryApiError
+from freedictionaryapi.languages import LanguageCodes
+# or `from freedictionaryapi import LanguageCodes`
 
 
 async def main():
