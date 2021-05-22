@@ -12,7 +12,7 @@ __all__ = ['Phonetic']
 
 class Phonetic(ParsedObject):
     """
-    Implements the object of API json response
+    Implements the object of API JSON response
     that consists of phonetics data:
 
         * text - transcription;
@@ -49,7 +49,7 @@ class Phonetic(ParsedObject):
     @property
     def transcription(self) -> str:
         """
-        Alias of :obj:`Phonetic.text` property
+        Alias of :attr:`Phonetic.text` property
 
         :return: transcription
         :rtype: :obj:`str`
@@ -60,7 +60,7 @@ class Phonetic(ParsedObject):
     @property
     def link_on_audio_with_pronunciation(self) -> str:
         """
-        Alias of :obj:`Phonetic.audio` property
+        Alias of :attr:`Phonetic.audio` property
 
         :return: link on audio (.mp3) with pronunciation
         :rtype: :obj:`str`

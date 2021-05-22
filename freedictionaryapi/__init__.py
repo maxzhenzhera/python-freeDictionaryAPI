@@ -12,10 +12,7 @@ from . import (
     languages,
     urls
 )
-from .clients import (
-    DictionaryApiClient,
-    AsyncDictionaryApiClient
-)
+from .errors import DictionaryApiError
 from .languages import LanguageCodes
 from .parsers import (
     DictionaryApiParser,
@@ -34,9 +31,6 @@ __all__ = [
     'languages',
     'urls',
     # classes
-    # # clients
-    'AsyncDictionaryApiClient',
-    'DictionaryApiClient',
     # # parsers
     'DictionaryApiParser',
     'DictionaryApiErrorParser',
@@ -44,6 +38,8 @@ __all__ = [
     'LanguageCodes',
     # # API url generator
     'ApiUrl',
+    # # Common error
+    'DictionaryApiError'
 ]
 
 

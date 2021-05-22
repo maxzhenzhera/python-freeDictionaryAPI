@@ -14,7 +14,7 @@ __all__ = ['Definition']
 
 class Definition(ParsedObject):
     """
-    Implements the object of API json response
+    Implements the object of API JSON response
     that consists of definition data:
 
         * definition - phrase about word meaning;
@@ -22,6 +22,7 @@ class Definition(ParsedObject):
         * example - example sentence or phrase with word usage by current definition.
 
     .. note::
+
         ``synonyms`` and ``example`` properties are not always available.
         API response does not always provide these fields.
         So in return type it is annotated accordingly:

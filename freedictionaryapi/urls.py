@@ -100,7 +100,7 @@ class ApiUrl:
 
     def get_url(self) -> str:
         """
-        Get prepared (with substituted word and language code) URL that is ready for request
+        Get prepared (with substituted word and language code) URL that is ready for request.
 
         :return: prepared URL
         :rtype: :obj:`str`

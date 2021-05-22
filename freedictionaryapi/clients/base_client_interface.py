@@ -29,7 +29,7 @@ logger = logging.getLogger(__name__)
 
 class BaseDictionaryApiClientInterface(abc.ABC):
     """
-    Base dictionary API client interface.
+    Implements base dictionary API client interface.
 
     Abstract client interface that supposed to be inherited
     for ``sync`` and ``async`` **base** clients.

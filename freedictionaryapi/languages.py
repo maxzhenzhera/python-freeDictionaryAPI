@@ -16,7 +16,14 @@ __all__ = [
 
 
 class LanguageCodes(Enum):
-    """ Contains supported languages and codes that used in API url """
+    """
+    Contains supported languages that might be used in API URL.
+
+    :obj:`Enum` members consist of :obj:`str`
+    that refer on language code
+    that is used in URL for API.
+    """
+
     ARABIC = 'ar'
     BRAZILIAN_PORTUGUESE = 'pt-BR'
     ENGLISH_UK = 'en_GB'

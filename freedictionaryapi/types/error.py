@@ -12,7 +12,7 @@ __all__ = ['Error']
 
 class Error(ParsedObject):
     """
-    Implements the object of API json response
+    Implements the object of API JSON response
     that consists of error data:
 
         * title - short error title;

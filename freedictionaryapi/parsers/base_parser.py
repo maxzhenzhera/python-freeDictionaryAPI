@@ -1,7 +1,7 @@
 """
 Contains base abstract dictionary API parser.
 
-
+.. class:: BaseDictionaryApiParser(abc.ABC)
 """
 
 import abc
@@ -14,6 +14,7 @@ __all__ = ['BaseDictionaryApiParser']
 class BaseDictionaryApiParser(abc.ABC):
     """
     Implements base abstract dictionary API parser.
+
     Supposed to be inherited by other dictionary API parsers.
     """
 
@@ -21,7 +22,7 @@ class BaseDictionaryApiParser(abc.ABC):
         """
         Init base dictionary API parser instance.
 
-        :param response: API json response loaded in python object
+        :param response: API JSON response loaded in python object
         :type response: :obj:`Any`
         """
 
@@ -30,7 +31,7 @@ class BaseDictionaryApiParser(abc.ABC):
     @property
     def response(self) -> Any:
         """
-        :return: API json response loaded in python object
+        :return: API JSON response loaded in python object
         :rtype: :obj:`Any`
         """
 

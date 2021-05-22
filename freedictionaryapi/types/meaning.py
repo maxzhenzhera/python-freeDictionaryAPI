@@ -15,7 +15,7 @@ __all__ = ['Meaning']
 
 class Meaning(ParsedObject):
     """
-    Implements the object of API json response
+    Implements the object of API JSON response
     that consists of meaning data:
 
         * partOfSpeech - part of speech;

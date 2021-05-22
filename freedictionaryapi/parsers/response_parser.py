@@ -24,7 +24,7 @@ class DictionaryApiParser(BaseDictionaryApiParser):
     Parses from API json response in :obj:`ParsedObject` types.
 
     For getting data like from simple API response
-    but with fields hinting: get :obj:`Word` object with :obj:`DictionaryApiParser.word` property
+    but with fields hinting: get :obj:`Word` object with :attr:`word` property
     and navigate through.
 
     For getting some sample data quickly
@@ -33,7 +33,7 @@ class DictionaryApiParser(BaseDictionaryApiParser):
 
     def __init__(self, response: typing.Union[dict, list]) -> None:
         """
-        Init dictionary API parser response intsance.
+        Init dictionary API parser response instance.
         Parse API response.
 
         ``response`` has type :obj:`Union[dict, list]`
@@ -77,6 +77,7 @@ class DictionaryApiParser(BaseDictionaryApiParser):
         :return: API response data
         :rtype: :obj:`dict`
         """
+
         return self._data
 
     @property
@@ -91,7 +92,7 @@ class DictionaryApiParser(BaseDictionaryApiParser):
     @property
     def phonetics(self) -> typing.List[Phonetic]:
         """
-        Phonetics data. Shortcut for :obj:`Word.phonetics`
+        Phonetics data. Shortcut for :attr:`Word.phonetics`.
 
         :return: phonetics data
         :rtype: :obj:`list[Phonetic]`
@@ -102,7 +103,7 @@ class DictionaryApiParser(BaseDictionaryApiParser):
     @property
     def meanings(self) -> typing.List[Meaning]:
         """
-        Meanings data. Shortcut for :obj:`Word.meanings`
+        Meanings data. Shortcut for :attr:`Word.meanings`.
 
         :return: meanings data
         :rtype: :obj:`list[Meaning]`
@@ -112,7 +113,7 @@ class DictionaryApiParser(BaseDictionaryApiParser):
 
     def _get_all_definitions_as_parsed_objects(self) -> typing.List[Definition]:
         """
-        Get list of all definitions (as :obj:`ParsedObject`)
+        Get list of all definitions (as :obj:`ParsedObject`).
 
         :return: list of definitions as parsed objects
         :rtype: :obj:`list[Definition]`
@@ -130,7 +131,8 @@ class DictionaryApiParser(BaseDictionaryApiParser):
 
     def get_transcription(self) -> str:
         """
-        Get transcription. If in response fetched few then return first
+        Get transcription.
+        If in response fetched few then return first.
 
         :return: transcription
         :rtype: :obj:`str`
@@ -143,7 +145,7 @@ class DictionaryApiParser(BaseDictionaryApiParser):
 
     def get_all_transcriptions(self) -> typing.List[str]:
         """
-        Get all transcriptions that fetched in response
+        Get all transcriptions that fetched in response.
 
         :return: list of transcriptions
         :rtype: :obj:`list[str]`
@@ -155,8 +157,11 @@ class DictionaryApiParser(BaseDictionaryApiParser):
 
     def get_link_on_audio_with_pronunciation(self) -> str:
         """
-        Get link on audio with pronunciation. If in response fetched few return first.
-        For more detailed (get few links) use :obj:`Word.phonetics` property - it`ll be more convenient and simpler.
+        Get link on audio with pronunciation.
+        If in response fetched few return first.
+
+        For more detailed (get few links) use :obj:`Word.phonetics` property -
+        it`ll be more obvious way .
 
         :return: link on audio with pronunciation
         :rtype: :obj:`str`
@@ -171,7 +176,7 @@ class DictionaryApiParser(BaseDictionaryApiParser):
 
     def get_all_parts_of_speech(self) -> typing.List[str]:
         """
-        Get all parts of speech
+        Get all parts of speech.
 
         :return: all parts of speech
         :rtype: :obj:`list[str]`
@@ -183,7 +188,7 @@ class DictionaryApiParser(BaseDictionaryApiParser):
 
     def get_all_definitions(self) -> typing.List[str]:
         """
-        Get all definitions (phrases that telling meaning of the word)
+        Get all definitions (phrases that telling meaning of the word).
 
         :return: list of definitions
         :rtype: :obj:`list[str]`
@@ -195,7 +200,7 @@ class DictionaryApiParser(BaseDictionaryApiParser):
 
     def get_all_examples(self) -> typing.List[str]:
         """
-        Get all examples of word usage
+        Get all examples of word usage.
 
         :return: list of examples
         :rtype: :obj:`list[str]`
@@ -207,7 +212,7 @@ class DictionaryApiParser(BaseDictionaryApiParser):
 
     def get_all_synonyms(self) -> typing.List[str]:
         """
-        Get all synonyms
+        Get all synonyms.
 
         :return: list of synonyms
         :rtype: :obj:`list[str]`

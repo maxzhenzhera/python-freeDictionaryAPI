@@ -24,9 +24,9 @@ class DictionaryApiErrorParser(BaseDictionaryApiParser):
         Init dictionary API error response parser instance.
         Parse API error response.
 
-        :param status_code: http status code
+        :param status_code: HTTP status code
         :type status_code: :obj:`int`
-        :param response: API json response loaded in python object
+        :param response: API JSON response loaded in python object
         :type response: :obj:`dict`
         """
 
@@ -68,7 +68,7 @@ class DictionaryApiErrorParser(BaseDictionaryApiParser):
     @property
     def title(self) -> str:
         """
-        Error title. Shortcut for :obj:`Error.title`
+        Error title. Shortcut for :attr:`Error.title`.
 
         :return: error title
         :rtype: :obj:`str`
@@ -79,7 +79,7 @@ class DictionaryApiErrorParser(BaseDictionaryApiParser):
     @property
     def message(self) -> str:
         """
-        Error message. Shortcut for :obj:`Error.message`
+        Error message. Shortcut for :attr:`Error.message`.
 
         :return: error message
         :rtype: :obj:`str`
@@ -90,7 +90,7 @@ class DictionaryApiErrorParser(BaseDictionaryApiParser):
     @property
     def resolution(self) -> str:
         """
-        Error resolution. Shortcut for `Error.resolution`
+        Error resolution. Shortcut for :attr:`Error.resolution`.
 
         :return: error resolution
         :rtype: :obj:`str`
@@ -100,7 +100,7 @@ class DictionaryApiErrorParser(BaseDictionaryApiParser):
 
     def get_formatted_error_message(self) -> str:
         """
-        Get readable error message
+        Get readable error message.
 
         :return: readable error message
         :rtype: :obj:`str`
