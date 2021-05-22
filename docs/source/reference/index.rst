@@ -2,7 +2,7 @@ Reference
 =========
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 3
    :caption: Contents:
 
    clients/index
@@ -11,11 +11,3 @@ Reference
    urls
    languages
    errors
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

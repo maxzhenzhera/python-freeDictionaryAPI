@@ -2,6 +2,7 @@ Implemented clients
 ===================
 
 .. toctree::
+    :maxdepth: 2
     :caption: Contents
 
     sync_client

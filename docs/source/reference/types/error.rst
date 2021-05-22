@@ -1,7 +1,7 @@
 Error
 =====
 
-Despite of the so strong name it expresses **parsed object**.
+Despite of the so *strong* name it expresses **parsed object**.
 
 So this type is created for **API error responses parsing**.
 

@@ -2,6 +2,7 @@ Clients
 =======
 
 .. toctree::
+    :maxdepth: 3
     :caption: Contents
 
     ~implemented_clients

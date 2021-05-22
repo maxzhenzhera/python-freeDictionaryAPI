@@ -22,7 +22,7 @@ Exceptions
     :show-inheritance:
 
 
-Exceptions` data
-^^^^^^^^^^^^^^^^
+Exceptions mapping
+^^^^^^^^^^^^^^^^^^
 
 .. autodata:: freedictionaryapi.errors.API_ERRORS_MAPPER
