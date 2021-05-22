@@ -7,10 +7,8 @@ Contains tests for clients.
 
 import pytest
 
-from freedictionaryapi.clients import (
-    AsyncDictionaryApiClient,
-    DictionaryApiClient
-)
+from freedictionaryapi.clients.async_client import AsyncDictionaryApiClient
+from freedictionaryapi.clients.sync_client import DictionaryApiClient
 from freedictionaryapi.errors import API_ERRORS_MAPPER
 
 
