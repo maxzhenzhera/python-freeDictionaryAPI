@@ -49,6 +49,12 @@ and
 `aiohttp <https://pypi.org/project/aiohttp/>`_
 accordingly.
 
+If you do not prefer to use implemented clients
+and want to use some other web lib.
+So, it is synchronous and asynchronous base clients for inheriting.
+All you need it is to implement one method that makes
+HTTP response.
+
 You can `read the docs here <https://python-freedictionaryapi.readthedocs.io/>`_.
 
 
