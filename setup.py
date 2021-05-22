@@ -59,9 +59,9 @@ setup(
     url='https://github.com/Max-Zhenzhera/python-freeDictionaryAPI',
     license='MIT',
     author='Max Zhenzhera',
-    requires_python='>=3.9',
+    requires_python='>=3.6',
     author_email='maxzhenzhera@gmail.com',
-    description='Wrapper for Free Dictionary API [https://dictionaryapi.dev/]',
+    description='Wrapper for Free Dictionary API https://dictionaryapi.dev/',
     long_description=get_long_description(),
     classifiers=[
         'Operating System :: OS Independent',
@@ -81,5 +81,10 @@ setup(
         'sync-client': [
             'httpx>=0.18.1',
         ],
+    },
+    project_urls={
+        'Documentation': 'https://python-freedictionaryapi.readthedocs.io/',
+        'Source': 'https://github.com/Max-Zhenzhera/python-freeDictionaryAPI',
+        'Bug Tracker': 'https://github.com/Max-Zhenzhera/python-freeDictionaryAPI/issues',
     },
 )
