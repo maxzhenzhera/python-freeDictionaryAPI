@@ -49,7 +49,7 @@ If you do not prefer to use implemented clients
 and want to use some other web lib.
 So, it is synchronous and asynchronous base clients for inheriting.
 All you need it is to implement one method that makes
-HTTP response.
+**HTTP request**.
 
 You can `read the docs here <https://python-freedictionaryapi.readthedocs.io/>`_.
 
@@ -59,7 +59,21 @@ Installation
 
 .. code-block:: bash
 
-    $ pip install python-freeDictionaryAPI
+        $ pip install python-freeDictionaryAPI
+
+To install package with extra requirements for **one of the client**:
+
+    - for synchronous client that uses ``httpx``:
+
+    .. code-block:: bash
+
+        $ pip install python-freeDictionaryAPI[sync-client]
+
+    - for asynchronous client that uses ``aiohttp``:
+
+    .. code-block:: bash
+
+        $ pip install python-freeDictionaryAPI[async-client]
 
 
 Super Quick Start
@@ -98,6 +112,17 @@ Super Quick Start
     ['hello', 'hailing', 'welcome', 'address', 'salutation', 'hallo', 'saluting', 'greeting']
     >>> parser.get_all_examples()
     ['she was getting polite nods and hellos from people', 'I pressed the phone button and helloed', 'hello there, Katie!']
+
+
+API note
+^^^^^^^^
+
+`API that used in this library <https://dictionaryapi.dev/>`_
+does not provide present of all fields in response.
+
+So, **be aware**, when response is parsed
+and some of the fields are empty in result -
+in code they`ll be returning ``None``.
 
 
 Developer
