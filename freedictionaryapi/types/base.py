@@ -5,9 +5,13 @@ Contains base types.
 """
 
 import abc
+import logging
 
 
 __all__ = ['ParsedObject']
+
+
+logger = logging.getLogger(__name__)
 
 
 class ParsedObject(abc.ABC):
@@ -97,7 +101,12 @@ class ParsedObject(abc.ABC):
         :type data: :obj:`dict`
         """
 
-        self._data = data
+        if not isinstance(data, dict):
+            self._data = {}
+
+            logger.debug(f'For {self.__class__.__name__} has been passed not `dict` data param.')
+        else:
+            self._data = data
 
     @property
     def data(self) -> dict:
