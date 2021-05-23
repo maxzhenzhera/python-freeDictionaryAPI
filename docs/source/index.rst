@@ -14,6 +14,16 @@ Welcome to python-freeDictionaryAPI's documentation!
    reference/index
 
 
+.. note::
+
+   `API that used in this library <https://dictionaryapi.dev/>`_
+   does not provide present of all fields in response.
+
+   So, **be aware**, when response is parsed
+   and some of the fields are empty in result -
+   in code they`ll be returning ``None``.
+
+
 Indices and tables
 ==================
 
