@@ -63,17 +63,17 @@ Installation
 
 To install package with extra requirements for **one of the client**:
 
-    - for synchronous client that uses ``httpx``:
+- for synchronous client that uses ``httpx``:
 
-    .. code-block:: bash
+.. code-block:: bash
 
-        $ pip install python-freeDictionaryAPI[sync-client]
+    $ pip install python-freeDictionaryAPI[sync-client]
 
-    - for asynchronous client that uses ``aiohttp``:
+- for asynchronous client that uses ``aiohttp``:
 
-    .. code-block:: bash
+.. code-block:: bash
 
-        $ pip install python-freeDictionaryAPI[async-client]
+    $ pip install python-freeDictionaryAPI[async-client]
 
 
 Super Quick Start
