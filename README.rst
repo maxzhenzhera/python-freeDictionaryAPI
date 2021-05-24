@@ -92,7 +92,7 @@ Super Quick Start
     >>> for meaning in word.meanings:
     ...     print(meaning.part_of_speech)
     ...     for definition in meaning.definitions:
-    ...             orint(definition)
+    ...             print(definition)
     ...     print()
     noun
     Definition(definition='An utterance of “hello”; a greeting.', example='she was getting polite nods and hellos from people', synonyms=['greeting', 'welcome', 'salutation', 'saluting', 'hailing', 'address', 'hello', 'hallo'])
